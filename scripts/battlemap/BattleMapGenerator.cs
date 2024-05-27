@@ -15,6 +15,7 @@ public partial class BattleMapGenerator : Node
         BattleMap battleMap = new(10, 10);
         battleMap.Name = name;
         GetParent().AddChild(battleMap);
+        battleMap.FillMapWithTileSetTile(new Vector2I(1, 0));
     }
 
 
