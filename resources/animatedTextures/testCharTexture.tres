@@ -1,0 +1,6 @@
+[gd_resource type="AnimatedTexture" load_steps=2 format=3 uid="uid://1r5vbb2n776s"]
+
+[ext_resource type="Texture2D" uid="uid://do0j21n234fbn" path="res://resources/sprites/Roy.png" id="1_y11fc"]
+
+[resource]
+frame_0/texture = ExtResource("1_y11fc")
