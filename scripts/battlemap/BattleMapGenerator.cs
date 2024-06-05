@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using Godot;
 
 public partial class BattleMapGenerator : Node
@@ -11,12 +12,18 @@ public partial class BattleMapGenerator : Node
         parentNode.AddChild(this);
     }
 
-    public void CreateBattleMap(string name) {
-        BattleMap battleMap = new(10, 10);
-        battleMap.Name = name;
+    public BattleMap CreateBattleMap(string name)
+    {
+        BattleMap battleMap = new(10, 10, name);
         GetParent().AddChild(battleMap);
-        battleMap.FillMapWithTileSetTile(new Vector2I(1, 0));
+        battleMap.FillMapWithCheckerboard(new Vector2I(1, 0), new Vector2I(2, 0));
+        return battleMap;
     }
 
-
+    public void AddEntityToPosition(Entity entity, Vector2I position)
+    {
+        entity.currentPosition = position;
+        entity.UpdateTransformToTile();
+        GetParent().AddChild(entity);
+    }
 }

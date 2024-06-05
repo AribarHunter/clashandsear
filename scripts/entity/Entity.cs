@@ -13,7 +13,8 @@ public partial class Entity : Sprite2D
         Centered = false;
     }
 
-    public void UpdateTransformToTile() {
+    public void UpdateTransformToTile()
+    {
         Position = CoordinateConverter.FindPixelAtTile(currentPosition, 0, 0);
     }
 }
