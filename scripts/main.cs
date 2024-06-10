@@ -14,6 +14,10 @@ public partial class Main : Node2D
 		// Let's make a player and add them?
 		Entity player = new Entity("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"));
 		battleMapGenerator.AddEntityToPosition(player, new Vector2I(2, 6));
+
+		// And here's the state machine stuff again.
+		StateMachine stateMachine = new StateMachine(this);
+		stateMachine.CurrentState = new PlayerTurnBaseState();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
