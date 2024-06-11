@@ -1,6 +1,6 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashAndSear", "ClashAndSear.csproj", "{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClashAndSear", "ClashAndSear.csproj", "{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{EC3C3AAF-DBCF-477C-9453-7698F8E5E971}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{C97B7E0C-BEE9-4895-BC41-8764B95E8FA0}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

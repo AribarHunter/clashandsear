@@ -21,4 +21,4 @@ project/assembly_name="ClashAndSear"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+enabled=PackedStringArray()
