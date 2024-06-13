@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://btpc4bhmwcsx7"]
+
+[ext_resource type="Texture2D" uid="uid://dunjagiuh4pc8" path="res://resources/sprites/cursor20x20.png" id="1_fnj4o"]
+[ext_resource type="Script" path="res://scripts/ui/BattleMapCursor.cs" id="2_4a5x3"]
+
+[node name="BattleMapCursor" type="Sprite2D"]
+z_index = 1
+position = Vector2(118, 85)
+texture = ExtResource("1_fnj4o")
+script = ExtResource("2_4a5x3")

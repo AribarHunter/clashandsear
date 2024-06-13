@@ -15,9 +15,14 @@ public partial class Main : Node2D
 		Entity player = new Entity("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"));
 		battleMapGenerator.AddEntityToPosition(player, new Vector2I(2, 6));
 
+		// Let's add a cursor?
+		BattleMapCursor battleMapCursor = (BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
+		testMap.AddChild(battleMapCursor);
+
 		// And here's the state machine stuff again.
 		StateMachine stateMachine = new StateMachine(this);
 		stateMachine.CurrentState = new PlayerTurnBaseState();
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

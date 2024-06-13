@@ -7,8 +7,6 @@ public partial class BattleMapGenerator : Node
     public BattleMapGenerator(Node2D parentNode)
     {
         Name = "LevelGenerator";
-        //this.parentNode = parentNode;
-        // GD.Print($"We're in the constructor!");
         parentNode.AddChild(this);
     }
 
@@ -16,7 +14,7 @@ public partial class BattleMapGenerator : Node
     {
         BattleMap battleMap = new(10, 10, name);
         GetParent().AddChild(battleMap);
-        battleMap.FillMapWithCheckerboard(new Vector2I(1, 0), new Vector2I(2, 0));
+        battleMap.FillMapWithCheckerboard(new Vector2I(0, 0), new Vector2I(1, 1));
         return battleMap;
     }
 

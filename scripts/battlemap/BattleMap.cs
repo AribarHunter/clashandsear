@@ -18,7 +18,7 @@ public partial class BattleMap : TileMap
         tiles = new BattleMapTile[width, height];
 
         // Hardcoded TileSet for now.
-        Set(PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/testTileset.tres", PropertyName.TileSet));
+        Set(PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", PropertyName.TileSet));
     }
 
     public void FillMapWithTileSetTile(Vector2I tileSetAtlasCoords)
