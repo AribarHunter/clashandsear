@@ -4,7 +4,7 @@ public partial class StateMachine : Node
 {
 	protected State _currentState;
 	protected bool _inTransition;
-	//public SignalManager signalManager
+	public SignalManager signalManager;
 	//public MainScene ms;
 
 	public virtual State CurrentState
@@ -13,11 +13,10 @@ public partial class StateMachine : Node
 		set { TransitionTo(value); }
 	}
 
-	public StateMachine(Node parent)
+	public StateMachine(Node parent, SignalManager signalManager)
 	{
-		// This is where the mainscene stuff would go.
-		// And the signal manager stuff.
 		Name = "StateMachine";
+		this.signalManager = signalManager;
 		parent.AddChild(this);
 	}
 
@@ -58,7 +57,8 @@ public partial class StateMachine : Node
 		_currentState = value;
 		if (_currentState != null)
 		{
-			_currentState.Enter(); // This?
+			_currentState.signalManager = signalManager;
+			_currentState.Enter();
 		}
 		_inTransition = false;
 	}

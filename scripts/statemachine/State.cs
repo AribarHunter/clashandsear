@@ -4,6 +4,7 @@ public abstract partial class State : GodotObject
 {
     //State machine
     //signal manager
+    public SignalManager signalManager;
 
     /// <summary>
     /// The StateMachine will call this in _Process.
@@ -22,13 +23,18 @@ public abstract partial class State : GodotObject
     /// </summary>
     public virtual void Enter()
     {
+        GD.Print($"Entering State: {this.GetType().Name}");
         //Assign state machine.
         //And signal manager.
+
     }
 
     /// <summary>
     /// This is called when exiting this State.
     /// Remember that you can't transition to a new state here!
     /// </summary>
-    public virtual void Exit() { }
+    public virtual void Exit()
+    {
+        GD.Print($"Exiting State: {this.GetType().Name}");
+    }
 }

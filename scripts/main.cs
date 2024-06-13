@@ -6,6 +6,9 @@ public partial class Main : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		// Let's make a signal manager.
+		SignalManager signalManager = new SignalManager(this);
+
 		// Let's make a level.
 		string name = "TestMap";
 		BattleMapGenerator battleMapGenerator = new(this);
@@ -20,7 +23,7 @@ public partial class Main : Node2D
 		testMap.AddChild(battleMapCursor);
 
 		// And here's the state machine stuff again.
-		StateMachine stateMachine = new StateMachine(this);
+		StateMachine stateMachine = new StateMachine(this, signalManager);
 		stateMachine.CurrentState = new PlayerTurnBaseState();
 
 	}
@@ -28,10 +31,5 @@ public partial class Main : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-	}
-
-	public void gonnaTestThis()
-	{
-
 	}
 }
