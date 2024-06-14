@@ -1,7 +1,8 @@
 using Godot;
+using System.Collections.Generic;
 
 public class BattleMapTile
 {
-
-    // Yay nothing yet!
+    public List<Entity> entities = new();
+    public Vector2I position;
 }
