@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class BattleMapCursor : Node2D
 {
@@ -26,9 +27,15 @@ public partial class BattleMapCursor : Node2D
         Set(PropertyName.Position, battleMap.MapToLocal(tilePosition));
 
         // Let's check if someone's under our tile?
-        if (battleMap.DoesPositionContainEntity(tilePosition))
+        if (battleMap.DoesPositionContainActor(tilePosition))
         {
-            GD.Print("Hey there's something here!");
+            List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+            GD.Print($"Hey there's an Actor here! It's {actors.ToString}");
+            // Emit signal to create highlight?
+        }
+        else
+        {
+            // Emit signal that there's nothing here?
         }
     }
 }

@@ -1,4 +1,5 @@
 using Godot;
+using System.Collections.Generic;
 
 public partial class BattleMap : TileMap
 {
@@ -47,10 +48,27 @@ public partial class BattleMap : TileMap
     /// </summary>
     /// <param name="tilePosition">The position of the BattleMapTile.</param>
     /// <returns></returns>
-    internal bool DoesPositionContainEntity(Vector2I tilePosition)
+    public bool DoesPositionContainEntity(Vector2I tilePosition)
     {
         if (tiles[tilePosition.X, tilePosition.Y].entities.Count > 0)
             return true;
         return false;
+    }
+
+    public bool DoesPositionContainActor(Vector2I tilePosition)
+    {
+        if (tiles[tilePosition.X, tilePosition.Y].Actors.Count > 0)
+            return true;
+        return false;
+    }
+
+    /// <summary>
+    /// Retrieves a list of actors.
+    /// </summary>
+    /// <param name="position">The Tile position to be checked.</param>
+    /// <returns>A list of all Actors in the tile position.</returns>
+    public List<Actor> GetActorsInPosition(Vector2I position)
+    {
+        return tiles[position.X, position.Y].Actors;
     }
 }
