@@ -1,5 +1,6 @@
 using Godot;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class BattleMapCursor : Node2D
 {
@@ -30,7 +31,7 @@ public partial class BattleMapCursor : Node2D
         if (battleMap.DoesPositionContainActor(tilePosition))
         {
             List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
-            GD.Print($"Hey there's an Actor here! It's {actors.ToString}");
+            GD.Print($"Hey there's an Actor here! It's {actors.First().Name}");
             // Emit signal to create highlight?
         }
         else

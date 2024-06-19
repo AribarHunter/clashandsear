@@ -7,14 +7,18 @@ public partial class BattleMap : TileMap
     public int width;
     public int height;
     public BattleMapTile[,] tiles;
+    public BattleMapHighlight battleMapHighlight;
 
-    public BattleMap(int width, int height, string name)
+    public BattleMap(int width, int height, string name, BattleMapHighlight battleMapHighlight)
     {
         // Set up tile stuff.
         this.height = height;
         this.width = width;
         Name = name;
         tiles = new BattleMapTile[width, height];
+
+        // Set up BattleMapHighlight.
+        this.battleMapHighlight = battleMapHighlight;
 
         // Hardcoded TileSet for now.
         Set(PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", PropertyName.TileSet));

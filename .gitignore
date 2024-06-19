@@ -13,5 +13,9 @@ export_presets.cfg
 .mono/
 data_*/
 
-# Ignore the bin filder!
+# Ignore the bin folder!
 /bin
+
+# Ignore VS Studios/Code stuff!
+.vs/
+.vscode/

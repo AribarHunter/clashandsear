@@ -14,7 +14,8 @@ public partial class Main : Node2D
         BattleMap testMap = battleMapGenerator.CreateBattleMap(name);
 
         // Let's make a player and add them?
-        Entity player = new Entity("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"));
+        Actor player = new Actor("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"), 3);
+        //Entity player = new Entity("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"));
         battleMapGenerator.AddEntityToPosition(player, new Vector2I(2, 6), testMap.tiles[2, 6]);
 
         // Let's add a cursor?

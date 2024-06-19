@@ -7,7 +7,10 @@ public class BattleMapTile
     public List<Entity> entities = new();
     public List<Actor> Actors
     {
-        get { return (List<Actor>)entities.OfType<Actor>(); }
+        get
+        {
+            return entities.OfType<Actor>().ToList();
+        }
     }
     public Vector2I position;
 }
