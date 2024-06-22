@@ -13,4 +13,5 @@ public class BattleMapTile
         }
     }
     public Vector2I position;
+    public int pathfindingDistance = int.MaxValue;
 }

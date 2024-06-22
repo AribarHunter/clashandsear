@@ -9,6 +9,15 @@ public partial class BattleMap : TileMap
     public BattleMapTile[,] tiles;
     public BattleMapHighlight battleMapHighlight;
 
+    
+    readonly Vector2I[] cardinalNeighbors = new Vector2I[4]
+    {
+        new(0, 1),
+        new(0, -1),
+        new(1, 0),
+        new(-1, 0)
+    };
+
     public BattleMap(int width, int height, string name, BattleMapHighlight battleMapHighlight)
     {
         // Set up tile stuff.
@@ -74,5 +83,46 @@ public partial class BattleMap : TileMap
     public List<Actor> GetActorsInPosition(Vector2I position)
     {
         return tiles[position.X, position.Y].Actors;
+    }
+
+    /// <summary>
+    /// Returns
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public BattleMapTile GetTileAt(Vector2I position)
+    {
+        if(PositionIsInbound(position))
+            return tiles[position.X, position.Y];
+        return null;
+    }
+
+    /// <summary>
+    /// Returns the cardinal neighbors BattleMapTiles of a certain position.
+    /// </summary>
+    /// <param name="position">The position of the BattleMapTile we're checking.</param>
+    /// <returns>The neighboring BattleMapTiles. Note this only returns inbound tiles!</returns>
+    public List<BattleMapTile> GetCardinalNeighborTilesOf(Vector2I position)
+    {
+        List<BattleMapTile> result = new();
+        for (int i = 0; i < 4; i++)
+            result.Add(GetTileAt(position + cardinalNeighbors[i]));
+        return result;
+    }
+
+    public List<BattleMapTile> GetCardinalNeighborTilesOf(BattleMapTile tile)
+    {
+        return GetCardinalNeighborTilesOf(tile.position);
+    }
+
+   /// <summary>
+   /// Checks if a position is inside the bounds of this level.
+   /// </summary>
+   /// <param name="position">The position we're checking.</param>
+   /// <returns>True for inbounds, false for outside.</returns>
+    public bool PositionIsInbound(Vector2I position)
+    {
+        return (0 <= position.X && position.X < width &&
+                0 <= position.Y && position.Y < height);
     }
 }
