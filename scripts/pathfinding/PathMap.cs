@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Godot;
+using System.Collections.Generic;
 using System.Linq;
 
-public class PathMap
+public partial class PathMap : GodotObject
 {
     public BattleMapTile startTile;
     public BattleMapTile endTile;
@@ -17,5 +18,15 @@ public class PathMap
     public List<BattleMapTile> ToTileList()
     {
         return valueToKeyPath.Keys.ToList();
+    }
+
+    public List<Vector2I> ToVector2IList()
+    {
+        List<Vector2I> result = new List<Vector2I>();
+        foreach (BattleMapTile tile in ToTileList())
+        {
+            result.Add(tile.position);
+        }
+        return result;
     }
 }

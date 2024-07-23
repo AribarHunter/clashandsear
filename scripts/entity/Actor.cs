@@ -9,4 +9,8 @@ public partial class Actor : Entity
         this.moveRange = moveRange;
     }
 
+    public bool AddTile(BattleMapTile fromTile, BattleMapTile toTile)
+    {
+        return (fromTile.pathfindingDistance + 1) <= moveRange;
+    }
 }

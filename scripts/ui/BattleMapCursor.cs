@@ -32,7 +32,9 @@ public partial class BattleMapCursor : Node2D
         {
             List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
             GD.Print($"Hey there's an Actor here! It's {actors.First().Name}");
+            PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().AddTile);
             // Emit signal to create highlight?
+            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
         }
         else
         {

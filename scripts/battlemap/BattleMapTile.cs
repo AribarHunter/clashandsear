@@ -2,7 +2,7 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleMapTile
+public partial class BattleMapTile : GodotObject
 {
     public List<Entity> entities = new();
     public List<Actor> Actors

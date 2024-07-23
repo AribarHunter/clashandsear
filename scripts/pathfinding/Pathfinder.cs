@@ -70,5 +70,4 @@ public class Pathfinder
         firstRef = secondRef;
         secondRef = tempRef;
     }
-
 }

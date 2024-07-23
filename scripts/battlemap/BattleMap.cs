@@ -28,6 +28,7 @@ public partial class BattleMap : TileMap
 
         // Set up BattleMapHighlight.
         this.battleMapHighlight = battleMapHighlight;
+        AddChild(battleMapHighlight);
 
         // Hardcoded TileSet for now.
         Set(PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", PropertyName.TileSet));
