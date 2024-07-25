@@ -16,11 +16,15 @@ public partial class BattleMapCursor : Node2D
         Set(PropertyName.Position, battleMap.MapToLocal(Vector2I.Zero));
         tilePosition = battleMap.LocalToMap(Position);
 
-        GD.Print("Gonna try to get SignalManager.");
+        //GD.Print("Gonna try to get SignalManager.");
         signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
         signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
     }
 
+    /// <summary>
+    /// Called when we need to move the BattleMapCursor.
+    /// </summary>
+    /// <param name="delta">The difference where we're moving.</param>
     protected void PerformMoveAction(Vector2I delta)
     {
         //GD.Print($"Old {tilePosition}, delta {delta}");
@@ -32,7 +36,7 @@ public partial class BattleMapCursor : Node2D
         {
             List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
             GD.Print($"Hey there's an Actor here! It's {actors.First().Name}");
-            PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().AddTile);
+            PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
             // Emit signal to create highlight?
             signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
         }

@@ -4,7 +4,7 @@ public partial class BattleMapGenerator : Node
 {
     public BattleMapGenerator(Node2D parentNode)
     {
-        Name = "LevelGenerator";
+        Name = "BattleMapGenerator";
         parentNode.AddChild(this);
     }
 
@@ -18,7 +18,7 @@ public partial class BattleMapGenerator : Node
         BattleMapHighlight battleMapHighlight = new(10, 10);
         BattleMap battleMap = new(10, 10, name, battleMapHighlight);
         GetParent().AddChild(battleMap);
-        battleMap.FillMapWithCheckerboard(new Vector2I(0, 0), new Vector2I(1, 1));
+        FillMapWithCheckerboard(battleMap, new Vector2I(0, 0), new Vector2I(1, 1));
         return battleMap;
     }
 
@@ -35,4 +35,32 @@ public partial class BattleMapGenerator : Node
         entity.UpdateTransformToTile();
         GetParent().AddChild(entity);
     }
+
+    /// <summary>
+    /// Silly temporary method to fill a BattleMap with a checkerboard of two textures in its tileset.
+    /// </summary>
+    /// <param name="tileOne">The position of the first tile.</param>
+    /// <param name="tileTwo">The position of the second tile.</param>
+    public static void FillMapWithCheckerboard(BattleMap map, Vector2I tileOne, Vector2I tileTwo)
+    {
+        for (int x = 0; x < map.width; x++)
+        {
+            for (int y = 0; y < map.height; y++)
+            {
+                BattleMapTile newTile = new();
+                newTile.position = new Vector2I(x, y);
+                map.tiles[x, y] = newTile;
+
+                if ((x + y) % 2 == 0)
+                    map.SetCell(0, new Vector2I(x, y), 0, tileOne);
+                else
+                    map.SetCell(0, new Vector2I(x, y), 0, tileTwo);
+            }
+        }
+    }
+
+
+
+
+
 }

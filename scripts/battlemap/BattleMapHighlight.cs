@@ -7,8 +7,8 @@ public partial class BattleMapHighlight : TileMap
     //public int height;
 
     SignalManager signalManager;
-
     public Vector2I movementHighlightTile;
+
     public BattleMapHighlight(int width, int height)
     {
         Name = "Battle Map Highlight";
@@ -18,20 +18,32 @@ public partial class BattleMapHighlight : TileMap
         movementHighlightTile = new Vector2I(14, 8);
     }
 
+    // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        GD.Print("Gonna try to get SignalManager.");
+        //GD.Print("Gonna try to get SignalManager.");
         signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
         signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
     }
 
+    /// <summary>
+    /// Highlight all of the tiles in a PathMap.
+    /// </summary>
+    /// <param name="pathmap">The PathMap of tiles we'll be highlighting.</param>
     private void PerformBattleMapHighlightAdd(PathMap pathmap)
     {
-        List<Vector2I> tiles = pathmap.ToVector2IList();
+        PerformBattleMapHighlightAdd(pathmap.ToVector2IList());
+    }
+
+    /// <summary>
+    /// Highlight all of the tiles in a list of Vector2I.
+    /// </summary>
+    /// <param name="tiles">The BattleMapTiles we'll be highlighting.</param>
+    private void PerformBattleMapHighlightAdd(List<Vector2I> tiles)
+    {
         foreach (var tile in tiles)
         {
             SetCell(0, tile, 0, movementHighlightTile);
         }
     }
-
 }

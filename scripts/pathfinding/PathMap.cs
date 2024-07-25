@@ -15,11 +15,19 @@ public partial class PathMap : GodotObject
         valueToKeyPath.Add(startTile, new PathNode(null, 0)); // Argh what is this?
     }
 
+    /// <summary>
+    /// Converts valueToKeyPath into a List of BattleMapTiles.
+    /// </summary>
+    /// <returns>All BattleMapTiles in valueToKeyPath.</returns>
     public List<BattleMapTile> ToTileList()
     {
         return valueToKeyPath.Keys.ToList();
     }
 
+    /// <summary>
+    /// Converts valueToKeyPath into a List of Vector2I.
+    /// </summary>
+    /// <returns>All positions in valueToKeyPath.</returns>
     public List<Vector2I> ToVector2IList()
     {
         List<Vector2I> result = new List<Vector2I>();
