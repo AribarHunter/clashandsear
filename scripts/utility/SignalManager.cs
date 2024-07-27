@@ -9,12 +9,17 @@ public partial class SignalManager : Node
     [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(PathMap tiles);
     [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
 
-
+    public static SignalManager Instance { get; private set; }
 
     public SignalManager(Node2D parentNode)
     {
         Name = "SignalManager";
         parentNode.AddChild(this);
+    }
+
+    public override void _Ready()
+    {
+        Instance = this;
     }
 
 

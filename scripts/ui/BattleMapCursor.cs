@@ -16,8 +16,7 @@ public partial class BattleMapCursor : Node2D
         Set(PropertyName.Position, battleMap.MapToLocal(Vector2I.Zero));
         tilePosition = battleMap.LocalToMap(Position);
 
-        //GD.Print("Gonna try to get SignalManager.");
-        signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
+        signalManager = SignalManager.Instance;
         signalManager.C(SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
         signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
     }
@@ -27,6 +26,7 @@ public partial class BattleMapCursor : Node2D
         if (battleMap.DoesPositionContainActor(tilePosition))
         {
             List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+            GameContext.Instance.selectedActor = actors.First();
             signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
         }
     }

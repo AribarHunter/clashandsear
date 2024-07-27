@@ -22,7 +22,8 @@ public partial class BattleMapHighlight : TileMap
     public override void _Ready()
     {
         //GD.Print("Gonna try to get SignalManager.");
-        signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
+        signalManager = SignalManager.Instance;
+        //signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
         signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
         signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
 

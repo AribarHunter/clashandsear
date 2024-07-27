@@ -6,7 +6,10 @@ public partial class Main : Node2D
     public override void _Ready()
     {
         // Let's make a signal manager.
-        SignalManager signalManager = new SignalManager(this);
+        SignalManager signalManager = new(this);
+
+        // Let's make something to hold game context.
+        GameContext gameContext = new(this);
 
         // Let's make a level.
         string name = "TestMap";
@@ -14,8 +17,7 @@ public partial class Main : Node2D
         BattleMap testMap = battleMapGenerator.CreateBattleMap(name);
 
         // Let's make a player and add them?
-        Actor player = new Actor("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"), 3);
-        //Entity player = new Entity("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"));
+        Actor player = new("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"), 3);
         battleMapGenerator.AddEntityToPosition(player, new Vector2I(2, 6), testMap.tiles[2, 6]);
 
         // Let's add a cursor?
@@ -23,7 +25,7 @@ public partial class Main : Node2D
         testMap.AddChild(battleMapCursor);
 
         // And here's the state machine stuff again.
-        StateMachine stateMachine = new StateMachine(this, signalManager);
+        StateMachine stateMachine = new(this, signalManager);
         stateMachine.CurrentState = new PlayerTurnBaseState();
 
     }

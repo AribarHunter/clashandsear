@@ -23,13 +23,16 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         {
             signalManager.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
         }
+        else if (Input.IsActionJustPressed("cancel"))
+        {
+            CancelUnitSelection();
+        }
     }
 
     public override void Enter()
     {
         base.Enter();
-        // Let's do something.
-        GD.Print("We're gonna do something with this unit!");
+        GD.Print($"We're gonna do something with this unit: {GameContext.Instance.selectedActor.Name}");
         //signalManager.C(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
 
     }
@@ -37,6 +40,13 @@ public partial class PlayerTurnSelectMoveDestinationState : State
     public override void Exit()
     {
         base.Exit();
+    }
+
+    public void CancelUnitSelection()
+    {
+        GameContext.Instance.selectedActor = null;
+        stateMachine.CurrentState = new PlayerTurnBaseState();
+
     }
 
     //protected void PerformSelectUnitAction(Actor actor)
