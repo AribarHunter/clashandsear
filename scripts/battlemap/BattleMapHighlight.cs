@@ -24,6 +24,8 @@ public partial class BattleMapHighlight : TileMap
         //GD.Print("Gonna try to get SignalManager.");
         signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
         signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
+        signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
+
     }
 
     /// <summary>
@@ -44,6 +46,17 @@ public partial class BattleMapHighlight : TileMap
         foreach (var tile in tiles)
         {
             SetCell(0, tile, 0, movementHighlightTile);
+        }
+    }
+
+    /// <summary>
+    /// If there's any highlights, Clear that whole layer.
+    /// </summary>
+    private void PerformBattleMapHighlightRemoveAll()
+    {
+        if (GetUsedCells(0).Count > 0)
+        {
+            Clear();
         }
     }
 }

@@ -58,6 +58,7 @@ public partial class StateMachine : Node
         if (_currentState != null)
         {
             _currentState.signalManager = signalManager;
+            _currentState.stateMachine = this;
             _currentState.Enter();
         }
         _inTransition = false;

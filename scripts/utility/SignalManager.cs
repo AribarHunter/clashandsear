@@ -3,8 +3,13 @@ using System.Collections.Generic;
 
 public partial class SignalManager : Node
 {
+    [Signal] public delegate void PerformConfirmActionEventHandler(Vector2I delta);
     [Signal] public delegate void PerformMoveActionEventHandler(Vector2I delta);
     [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(PathMap tiles);
+    [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(PathMap tiles);
+    [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
+
+
 
     public SignalManager(Node2D parentNode)
     {
@@ -35,6 +40,6 @@ public partial class SignalManager : Node
     public void E(string signal, params Variant[] args)
     {
         EmitSignal(signal, args);
-        GD.Print($"Emit Signal: {signal}");
+        //GD.Print($"Emit Signal: {signal}");
     }
 }

@@ -1,6 +1,6 @@
 using Godot;
 
-public partial class PlayerTurnBaseState : State
+public partial class PlayerTurnSelectMoveDestinationState : State
 {
 
     public override void HandleInput(InputEvent @event)
@@ -23,18 +23,14 @@ public partial class PlayerTurnBaseState : State
         {
             signalManager.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
         }
-        else if (Input.IsActionJustPressed("confirm"))
-        {
-            signalManager.E(SignalManager.SignalName.PerformConfirmAction.ToString());
-        }
     }
 
     public override void Enter()
     {
         base.Enter();
         // Let's do something.
-        GD.Print("Starting Player Turn!");
-        signalManager.C(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
+        GD.Print("We're gonna do something with this unit!");
+        //signalManager.C(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
 
     }
 
@@ -43,8 +39,8 @@ public partial class PlayerTurnBaseState : State
         base.Exit();
     }
 
-    protected void PerformSelectUnitAction(Actor actor)
-    {
-        stateMachine.CurrentState = new PlayerTurnSelectMoveDestinationState();
-    }
+    //protected void PerformSelectUnitAction(Actor actor)
+    //{
+    //    GD.Print("Hey this is where we'd switch states.");
+    //}
 }

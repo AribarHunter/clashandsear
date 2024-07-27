@@ -18,7 +18,17 @@ public partial class BattleMapCursor : Node2D
 
         //GD.Print("Gonna try to get SignalManager.");
         signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
+        signalManager.C(SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
         signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
+    }
+
+    protected void PerformConfirmAction()
+    {
+        if (battleMap.DoesPositionContainActor(tilePosition))
+        {
+            List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+            signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
+        }
     }
 
     /// <summary>
@@ -43,6 +53,7 @@ public partial class BattleMapCursor : Node2D
         else
         {
             // Emit signal that there's nothing here?
+            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
         }
     }
 }
