@@ -37,19 +37,23 @@ public partial class BattleMapCursor : Node2D
     /// <param name="delta">The difference where we're moving.</param>
     protected void PerformMoveAction(Vector2I delta)
     {
-        tilePosition += delta;
-        Set(PropertyName.Position, battleMap.MapToLocal(tilePosition));
+        Vector2I newPosition = tilePosition + delta;
+        if(battleMap.PositionIsInbound(newPosition))
+        {
+            tilePosition = newPosition;
+            Set(PropertyName.Position, battleMap.MapToLocal(tilePosition));
 
-        // Let's check if someone's under our tile
-        if (battleMap.DoesPositionContainActor(tilePosition))
-        {
-            List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
-            PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
-            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
-        }
-        else
-        {
-            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+            // Let's check if someone's under our tile
+            if (battleMap.DoesPositionContainActor(tilePosition))
+            {
+                List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+                PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
+                signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+            }
+            else
+            {
+                signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+            }
         }
     }
 }
