@@ -15,7 +15,7 @@ public partial class BattleMapGenerator : Node
     /// <returns></returns>
     public BattleMap CreateBattleMap(string name)
     {
-        BattleMapHighlight battleMapHighlight = new(10, 10);
+        BattleMapHighlight battleMapHighlight = new();
         BattleMap battleMap = new(10, 10, name, battleMapHighlight);
         GetParent().AddChild(battleMap);
         FillMapWithCheckerboard(battleMap, new Vector2I(0, 0), new Vector2I(1, 1));

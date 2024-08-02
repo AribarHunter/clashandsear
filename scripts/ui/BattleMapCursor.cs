@@ -37,22 +37,18 @@ public partial class BattleMapCursor : Node2D
     /// <param name="delta">The difference where we're moving.</param>
     protected void PerformMoveAction(Vector2I delta)
     {
-        //GD.Print($"Old {tilePosition}, delta {delta}");
         tilePosition += delta;
         Set(PropertyName.Position, battleMap.MapToLocal(tilePosition));
 
-        // Let's check if someone's under our tile?
+        // Let's check if someone's under our tile
         if (battleMap.DoesPositionContainActor(tilePosition))
         {
             List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
-            GD.Print($"Hey there's an Actor here! It's {actors.First().Name}");
             PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
-            // Emit signal to create highlight?
             signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
         }
         else
         {
-            // Emit signal that there's nothing here?
             signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
         }
     }

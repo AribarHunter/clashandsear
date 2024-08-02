@@ -2,8 +2,6 @@ using Godot;
 
 public abstract partial class State : GodotObject
 {
-    //State machine
-    //signal manager
     public SignalManager signalManager;
     public StateMachine stateMachine;
 
@@ -25,9 +23,6 @@ public abstract partial class State : GodotObject
     public virtual void Enter()
     {
         GD.Print($"Entering State: {this.GetType().Name}");
-        //Assign state machine.
-        //And signal manager.
-
     }
 
     /// <summary>

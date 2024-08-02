@@ -9,7 +9,7 @@ public partial class BattleMapHighlight : TileMap
     SignalManager signalManager;
     public Vector2I movementHighlightTile;
 
-    public BattleMapHighlight(int width, int height)
+    public BattleMapHighlight()
     {
         Name = "Battle Map Highlight";
 
@@ -21,12 +21,9 @@ public partial class BattleMapHighlight : TileMap
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        //GD.Print("Gonna try to get SignalManager.");
         signalManager = SignalManager.Instance;
-        //signalManager = GetNode<SignalManager>("/root/Main/SignalManager");
         signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
         signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
-
     }
 
     /// <summary>

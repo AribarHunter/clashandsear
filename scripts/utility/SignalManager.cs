@@ -22,7 +22,6 @@ public partial class SignalManager : Node
         Instance = this;
     }
 
-
     /// <summary>
     /// Connects a signal to a method on the target object.
     /// </summary>

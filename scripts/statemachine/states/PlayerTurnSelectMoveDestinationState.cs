@@ -25,7 +25,7 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         }
         else if (Input.IsActionJustPressed("cancel"))
         {
-            CancelUnitSelection();
+            UnitSelectionWasCancelled();
         }
     }
 
@@ -33,8 +33,6 @@ public partial class PlayerTurnSelectMoveDestinationState : State
     {
         base.Enter();
         GD.Print($"We're gonna do something with this unit: {GameContext.Instance.selectedActor.Name}");
-        //signalManager.C(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
-
     }
 
     public override void Exit()
@@ -42,15 +40,12 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         base.Exit();
     }
 
-    public void CancelUnitSelection()
+    /// <summary>
+    /// Called when the user cancels selecting the unit.
+    /// </summary>
+    public void UnitSelectionWasCancelled()
     {
         GameContext.Instance.selectedActor = null;
         stateMachine.CurrentState = new PlayerTurnBaseState();
-
     }
-
-    //protected void PerformSelectUnitAction(Actor actor)
-    //{
-    //    GD.Print("Hey this is where we'd switch states.");
-    //}
 }

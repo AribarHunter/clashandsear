@@ -6,13 +6,13 @@ public partial class PathMap : GodotObject
 {
     public BattleMapTile startTile;
     public BattleMapTile endTile;
-    public Dictionary<BattleMapTile, PathNode> valueToKeyPath = new Dictionary<BattleMapTile, PathNode>(); // New code what dis again?
+    public Dictionary<BattleMapTile, PathNode> valueToKeyPath = new();
 
     public PathMap(BattleMapTile startTile, BattleMapTile endTile)
     {
         this.startTile = startTile;
         this.endTile = endTile;
-        valueToKeyPath.Add(startTile, new PathNode(null, 0)); // Argh what is this?
+        valueToKeyPath.Add(startTile, new PathNode(null, 0));
     }
 
     /// <summary>
