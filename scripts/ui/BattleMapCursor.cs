@@ -43,16 +43,23 @@ public partial class BattleMapCursor : Node2D
             tilePosition = newPosition;
             Set(PropertyName.Position, battleMap.MapToLocal(tilePosition));
 
-            // Let's check if someone's under our tile
-            if (battleMap.DoesPositionContainActor(tilePosition))
+            if(GameContext.Instance.currentState.stateName == StateName.PlayerTurnBaseState)
             {
-                List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
-                PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
-                signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+                // Let's check if someone's under our tile
+                if (battleMap.DoesPositionContainActor(tilePosition))
+                {
+                    List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+                    PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
+                    signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+                }
+                else
+                {
+                    signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+                }
             }
-            else
+        else if (GameContext.Instance.currentState.stateName == StateName.PlayerTurnSelectMoveDestinationState)
             {
-                signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+                GD.Print("We'll do something here.");
             }
         }
     }

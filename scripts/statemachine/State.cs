@@ -5,6 +5,8 @@ public abstract partial class State : GodotObject
     public SignalManager signalManager;
     public StateMachine stateMachine;
 
+    internal StateName stateName;
+
     /// <summary>
     /// The StateMachine will call this in _Process.
     /// </summary>

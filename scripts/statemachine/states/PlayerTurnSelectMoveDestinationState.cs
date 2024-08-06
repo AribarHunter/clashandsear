@@ -32,6 +32,7 @@ public partial class PlayerTurnSelectMoveDestinationState : State
     public override void Enter()
     {
         base.Enter();
+        stateName = StateName.PlayerTurnSelectMoveDestinationState;
         GD.Print($"We're gonna do something with this unit: {GameContext.Instance.selectedActor.Name}");
     }
 

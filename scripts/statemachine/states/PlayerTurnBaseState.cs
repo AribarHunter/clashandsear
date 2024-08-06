@@ -2,7 +2,6 @@ using Godot;
 
 public partial class PlayerTurnBaseState : State
 {
-
     public override void HandleInput(InputEvent @event)
     {
         base.HandleInput(@event);
@@ -32,6 +31,7 @@ public partial class PlayerTurnBaseState : State
     public override void Enter()
     {
         base.Enter();
+        stateName = StateName.PlayerTurnBaseState;
         // Let's do something.
         GD.Print("Starting Player Turn!");
         signalManager.C(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));

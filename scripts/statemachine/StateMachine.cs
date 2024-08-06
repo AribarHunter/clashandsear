@@ -59,6 +59,7 @@ public partial class StateMachine : Node
         {
             _currentState.signalManager = signalManager;
             _currentState.stateMachine = this;
+            GameContext.Instance.currentState = _currentState;
             _currentState.Enter();
         }
         _inTransition = false;
