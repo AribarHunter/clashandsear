@@ -11,7 +11,7 @@ public partial class GameContext : Node
 
     public GameContext(Node2D parentNode)
     {
-        Name = "GameContexxt";
+        Name = "GameContext";
         parentNode.AddChild(this);
     }
 

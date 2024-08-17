@@ -24,6 +24,7 @@ public partial class PlayerTurnBaseState : State
         }
         else if (Input.IsActionJustPressed("confirm"))
         {
+            GD.PrintRich("[b]HandleInput (PlayerTurnBaseState):[/b] Confirm Pressed. Emitting PerformConfirmAction signal.");
             signalManager.E(SignalManager.SignalName.PerformConfirmAction.ToString());
         }
     }
@@ -33,14 +34,17 @@ public partial class PlayerTurnBaseState : State
         base.Enter();
         stateName = StateName.PlayerTurnBaseState;
         // Let's do something.
-        GD.Print("Starting Player Turn!");
+        //GD.Print("Starting Player Turn!");
         signalManager.C(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
+
+        signalManager.E(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString());
 
     }
 
     public override void Exit()
     {
         base.Exit();
+        signalManager.D(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
     }
 
     protected void PerformSelectUnitAction(Actor actor)

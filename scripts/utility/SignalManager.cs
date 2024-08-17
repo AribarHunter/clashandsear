@@ -7,6 +7,7 @@ public partial class SignalManager : Node
     [Signal] public delegate void PerformMoveActionEventHandler(Vector2I delta);
     [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(PathMap tiles);
     [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(PathMap tiles);
+    [Signal] public delegate void PerformHighlightIfHoveringOverActorActionEventHandler();
     [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
 
     public static SignalManager Instance { get; private set; }
@@ -33,7 +34,14 @@ public partial class SignalManager : Node
     public void C(string signal, GodotObject target, string method, Godot.Collections.Array binds = null, uint flags = 0)
     {
         Connect(signal, new Callable(target, method), flags);
-        // GD.Print($"Connected Signal: {signal} to {target.ToString()}.{method}");
+        //GD.Print($"Connected Signal: {signal} to {target.ToString()}.{method}");
+        
+    }
+
+    public void D(string signal, GodotObject target, string method)
+    {
+        Disconnect(signal, new Callable(target, method));
+        //GD.Print($"Disconnected Signal: {signal} from {target.ToString()}.{method}");
     }
 
     /// <summary>

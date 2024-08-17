@@ -25,6 +25,7 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         }
         else if (Input.IsActionJustPressed("cancel"))
         {
+            GD.PrintRich("[b]HandleInput (PlayerTurnSelectMoveDestinationState):[/b] Cancel pressed.");
             UnitSelectionWasCancelled();
         }
     }
@@ -33,7 +34,6 @@ public partial class PlayerTurnSelectMoveDestinationState : State
     {
         base.Enter();
         stateName = StateName.PlayerTurnSelectMoveDestinationState;
-        GD.Print($"We're gonna do something with this unit: {GameContext.Instance.selectedActor.Name}");
     }
 
     public override void Exit()

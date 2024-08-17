@@ -18,6 +18,7 @@ public partial class BattleMapCursor : Node2D
 
         signalManager = SignalManager.Instance;
         signalManager.C(SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
+        signalManager.C(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString(), this, nameof(PerformHighlightIfHoveringOverActorAction));
         signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
     }
 
@@ -45,22 +46,28 @@ public partial class BattleMapCursor : Node2D
 
             if(GameContext.Instance.currentState.stateName == StateName.PlayerTurnBaseState)
             {
-                // Let's check if someone's under our tile
-                if (battleMap.DoesPositionContainActor(tilePosition))
-                {
-                    List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
-                    PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
-                    signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
-                }
-                else
-                {
-                    signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
-                }
+                PerformHighlightIfHoveringOverActorAction();
             }
         else if (GameContext.Instance.currentState.stateName == StateName.PlayerTurnSelectMoveDestinationState)
             {
                 GD.Print("We'll do something here.");
             }
+        }
+    }
+
+    void PerformHighlightIfHoveringOverActorAction()
+    {
+        if (battleMap.DoesPositionContainActor(tilePosition))
+        {
+            List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+            PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
+
+            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+        }
+        else
+        {
+            signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
         }
     }
 }
