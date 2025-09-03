@@ -8,6 +8,7 @@ public partial class BattleMap : TileMap
     public int height;
     public BattleMapTile[,] tiles;
     public BattleMapHighlight battleMapHighlight;
+    public AStarGrid2D astarGrid;
 
     /// <summary>
     /// Convenience array for addition to get the direct neighbors to a tile.
@@ -31,6 +32,15 @@ public partial class BattleMap : TileMap
         // Set up BattleMapHighlight.
         this.battleMapHighlight = battleMapHighlight;
         AddChild(battleMapHighlight);
+
+        // Set up AStarGrid stuff.
+        astarGrid = new AStarGrid2D();
+        astarGrid.Region = new Rect2I(0, 0, width, height);
+        astarGrid.CellSize = new Vector2I(BattleMapTile.PIXELSQUARESIZE, BattleMapTile.PIXELSQUARESIZE);
+        astarGrid.DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan;
+        astarGrid.DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan;
+        astarGrid.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;
+        astarGrid.Update();
 
         // Hardcoded TileSet for now.
         Set(PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", PropertyName.TileSet));

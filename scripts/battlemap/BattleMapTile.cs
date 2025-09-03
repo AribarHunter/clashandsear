@@ -4,6 +4,8 @@ using System.Linq;
 
 public partial class BattleMapTile : GodotObject
 {
+
+    public static int PIXELSQUARESIZE = 16;
     public List<Entity> entities = new();
     public List<Actor> Actors
     {

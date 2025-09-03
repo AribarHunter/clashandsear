@@ -38,6 +38,12 @@ public partial class SignalManager : Node
         
     }
 
+    /// <summary>
+    /// Disconnects a signal.
+    /// </summary>
+    /// <param name="signal">Signal to disconnect.</param>
+    /// <param name="target">Target object.</param>
+    /// <param name="method">Connected method.</param>
     public void D(string signal, GodotObject target, string method)
     {
         Disconnect(signal, new Callable(target, method));
