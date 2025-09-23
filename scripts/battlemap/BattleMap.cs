@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.Generic;
 
-public partial class BattleMap : TileMap
+public partial class BattleMap : TileMapLayer
 {
 
     public int width;
@@ -36,7 +36,7 @@ public partial class BattleMap : TileMap
         // Set up AStarGrid stuff.
         astarGrid = new AStarGrid2D();
         astarGrid.Region = new Rect2I(0, 0, width, height);
-        astarGrid.CellSize = new Vector2I(BattleMapTile.PIXELSQUARESIZE, BattleMapTile.PIXELSQUARESIZE);
+        astarGrid.CellSize = new Vector2I(1, 1);
         astarGrid.DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan;
         astarGrid.DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan;
         astarGrid.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;

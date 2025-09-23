@@ -19,7 +19,7 @@ public class Pathfinder
     {
         // Prepare the starting Tile, the PathMap, Queues and clear previous pathfinding searches.
         BattleMapTile startTile = map.GetTileAt(startPosition);
-        PathMap result = new PathMap(startTile, null);
+        PathMap result = new(startTile, null);
         Queue<BattleMapTile> checkNext = new();
         Queue<BattleMapTile> checkNow = new();
         ClearSearch(map);

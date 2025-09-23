@@ -52,9 +52,9 @@ public partial class BattleMapGenerator : Node
                 map.tiles[x, y] = newTile;
 
                 if ((x + y) % 2 == 0)
-                    map.SetCell(0, new Vector2I(x, y), 0, tileOne);
+                    map.SetCell(new Vector2I(x, y), 0, tileOne);
                 else
-                    map.SetCell(0, new Vector2I(x, y), 0, tileTwo);
+                    map.SetCell(new Vector2I(x, y), 0, tileTwo);
             }
         }
     }

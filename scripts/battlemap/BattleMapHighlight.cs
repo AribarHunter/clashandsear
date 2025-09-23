@@ -1,7 +1,7 @@
 ﻿using Godot;
 using System.Collections.Generic;
 
-public partial class BattleMapHighlight : TileMap
+public partial class BattleMapHighlight : TileMapLayer
 {
     //public int width;
     //public int height;
@@ -43,7 +43,7 @@ public partial class BattleMapHighlight : TileMap
     {
         foreach (var tile in tiles)
         {
-            SetCell(0, tile, 0, movementHighlightTile);
+            SetCell(tile, 0, movementHighlightTile);
         }
     }
 
@@ -52,7 +52,7 @@ public partial class BattleMapHighlight : TileMap
     /// </summary>
     private void PerformBattleMapHighlightRemoveAll()
     {
-        if (GetUsedCells(0).Count > 0)
+        if (GetUsedCells().Count > 0)
         {
             Clear();
         }
