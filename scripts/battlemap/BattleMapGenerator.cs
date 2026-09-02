@@ -28,7 +28,7 @@ public partial class BattleMapGenerator : Node
     /// <param name="entity">The Entity to be positioned.</param>
     /// <param name="position">The position on the BattleMap.</param>
     /// <param name="battleMapTile">The specific BattleMapTile they'll be on.</param>
-    public void AddEntityToPosition(Entity entity, Vector2I position, BattleMapTile battleMapTile)
+    public void AddEntityToPosition(ClashAndSear.scripts.entity.Entity entity, Vector2I position, BattleMapTile battleMapTile)
     {
         entity.battleMapPosition = position;
         entity.SetEntityToBattleMapTile(battleMapTile);

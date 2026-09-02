@@ -75,7 +75,7 @@ public partial class BattleMap : TileMapLayer
     /// </summary>
     /// <param name="position">The BattleMapTile position to be checked.</param>
     /// <returns>A list of all Actors in the tile position.</returns>
-    public List<Actor> GetActorsInPosition(Vector2I position)
+    public List<ClashAndSear.scripts.entity.Actor> GetActorsInPosition(Vector2I position)
     {
         return tiles[position.X, position.Y].Actors;
     }

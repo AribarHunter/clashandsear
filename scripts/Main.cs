@@ -1,4 +1,7 @@
+using ClashAndSear.scripts.entity;
 using Godot;
+
+namespace ClashAndSear.scripts;
 
 public partial class Main : Node2D
 {
@@ -17,17 +20,17 @@ public partial class Main : Node2D
         BattleMap testMap = battleMapGenerator.CreateBattleMap(name);
 
         // Let's make a player and add them?
-        Actor player = new("Player", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"), 3);
+         var test = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
+        Actor player = test.Instantiate<Actor>();
         battleMapGenerator.AddEntityToPosition(player, new Vector2I(2, 6), testMap.tiles[2, 6]);
-
-        Actor someOtherDood = new("someOtherDood", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"), 3);
+        
+        Actor someOtherDood = test.Instantiate<Actor>();
         battleMapGenerator.AddEntityToPosition(someOtherDood, new Vector2I(3, 6), testMap.tiles[3, 6]);
-
-        Actor aThirdGal = new("aThirdGal", (Texture2D)ResourceLoader.Load("res://resources/animatedTextures/testCharTexture.tres"), 3);
+        
+        Actor aThirdGal = test.Instantiate<Actor>();
         battleMapGenerator.AddEntityToPosition(aThirdGal, new Vector2I(4, 4), testMap.tiles[4, 4]);
 
-
-        // Let's add a cursor?
+        // 's add a cursor?
         BattleMapCursor battleMapCursor = (BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
         testMap.AddChild(battleMapCursor);
 

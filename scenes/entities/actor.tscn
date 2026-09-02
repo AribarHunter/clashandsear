@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://baeadlbt7vta8"]
+
+[ext_resource type="PackedScene" uid="uid://bws75g1tcklos" path="res://resources/animatedSprite2D/ally.tscn" id="1_jjf26"]
+[ext_resource type="Script" uid="uid://s0yduvckvjfn" path="res://scripts/entity/Actor.cs" id="1_qiu3x"]
+
+[node name="Actor" type="Node2D" unique_id=950534224]
+script = ExtResource("1_qiu3x")
+
+[node name="Ally" parent="." unique_id=663445848 instance=ExtResource("1_jjf26")]

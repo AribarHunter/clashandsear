@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://bws75g1tcklos"]
+
+[ext_resource type="Texture2D" uid="uid://dhakgc3wbpdv4" path="res://resources/sprites/Mech1Ally.png" id="1_x25e3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86lui"]
+atlas = ExtResource("1_x25e3")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gjmm"]
+atlas = ExtResource("1_x25e3")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2x8j7"]
+atlas = ExtResource("1_x25e3")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7s1ka"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86lui")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5gjmm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2x8j7")
+}],
+"loop": 1,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Ally" type="AnimatedSprite2D" unique_id=663445848]
+sprite_frames = SubResource("SpriteFrames_7s1ka")
+animation = &"new_animation"
+frame = 2
+frame_progress = 0.008643618

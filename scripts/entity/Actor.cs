@@ -1,13 +1,15 @@
 ﻿using Godot;
 
-public partial class Actor : Entity
-{
-    public int moveRange;
+namespace ClashAndSear.scripts.entity;
 
-    public Actor(string name, Texture2D texture2D, int moveRange) : base(name, texture2D)
-    {
-        this.moveRange = moveRange;
-    }
+public partial class Actor : ClashAndSear.scripts.entity.Entity
+{
+    public int moveRange = 3;
+
+    // public Actor(string name, AnimatedSprite2D animatedSprite2D, int moveRange) : base(name, animatedSprite2D)
+    // {
+    //     this.moveRange = moveRange;
+    // }
 
     /// <summary>
     /// Pathfinder helper to determine if a tile is within the Actor's move range.

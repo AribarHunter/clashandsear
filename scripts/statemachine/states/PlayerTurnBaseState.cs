@@ -47,7 +47,7 @@ public partial class PlayerTurnBaseState : State
         signalManager.D(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
     }
 
-    protected void PerformSelectUnitAction(Actor actor)
+    protected void PerformSelectUnitAction(ClashAndSear.scripts.entity.Actor actor)
     {
         stateMachine.CurrentState = new PlayerTurnSelectMoveDestinationState();
     }

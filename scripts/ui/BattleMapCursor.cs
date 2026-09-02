@@ -26,7 +26,7 @@ public partial class BattleMapCursor : Node2D
     {
         if (battleMap.DoesPositionContainActor(tilePosition))
         {
-            List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+            List<ClashAndSear.scripts.entity.Actor> actors = battleMap.GetActorsInPosition(tilePosition);
             GameContext.Instance.selectedActor = actors.First();
             signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
         }
@@ -65,7 +65,7 @@ public partial class BattleMapCursor : Node2D
         signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
         if (battleMap.DoesPositionContainActor(tilePosition))
         {
-            List<Actor> actors = battleMap.GetActorsInPosition(tilePosition);
+            List<ClashAndSear.scripts.entity.Actor> actors = battleMap.GetActorsInPosition(tilePosition);
             PathMap areaToHighlight = Pathfinder.SearchArea(battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
 
             signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);

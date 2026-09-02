@@ -4,12 +4,12 @@ using System.Linq;
 
 public partial class BattleMapTile : GodotObject
 {
-    public List<Entity> entities = new();
-    public List<Actor> Actors
+    public List<ClashAndSear.scripts.entity.Entity> entities = new();
+    public List<ClashAndSear.scripts.entity.Actor> Actors
     {
         get
         {
-            return entities.OfType<Actor>().ToList();
+            return entities.OfType<ClashAndSear.scripts.entity.Actor>().ToList();
         }
     }
     public Vector2I position;
