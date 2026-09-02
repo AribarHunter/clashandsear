@@ -6,13 +6,13 @@ public partial class Entity : Node2D
 {
 
     public Vector2I battleMapPosition;
-    private BattleMapTile _currentBattleMapTile;
+    private battlemap.BattleMapTile _currentBattleMapTile;
 
     /// <summary>
     /// Use this to remove the Entity from its current BattleMapTile and add it to a new one.
     /// </summary>
     /// <param name="newBattleMapTile">The Entity's destination BattleMapTile.</param>
-    public void SetEntityToBattleMapTile(BattleMapTile newBattleMapTile)
+    public void SetEntityToBattleMapTile(battlemap.BattleMapTile newBattleMapTile)
     {
         // Remove entity from current tile.
         _currentBattleMapTile?.entities.Remove(this);
@@ -22,6 +22,6 @@ public partial class Entity : Node2D
 
     public void UpdateTransformToTile()
     {
-        Position = CoordinateConverter.FindPixelAtTile(battleMapPosition, 0, 0);
+        Position = CoordinateConverter.FindPixelAtTile(battleMapPosition);
     }
 }

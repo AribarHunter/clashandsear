@@ -7,7 +7,7 @@ public partial class GameContext : Node
     public static GameContext Instance { get; private set; }
 
     public ClashAndSear.scripts.entity.Actor selectedActor;
-    public State currentState;
+    public ClashAndSear.scripts.statemachine.State currentState;
 
     public GameContext(Node2D parentNode)
     {

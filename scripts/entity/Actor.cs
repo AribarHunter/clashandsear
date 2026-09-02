@@ -2,7 +2,7 @@
 
 namespace ClashAndSear.scripts.entity;
 
-public partial class Actor : ClashAndSear.scripts.entity.Entity
+public partial class Actor : Entity
 {
     public int moveRange = 3;
 
@@ -17,7 +17,7 @@ public partial class Actor : ClashAndSear.scripts.entity.Entity
     /// <param name="fromTile">The tile we'd move from.</param>
     /// <param name="toTile">The tile we'd move to.</param>
     /// <returns>True if the Actor can move between fromTile to toTile.</returns>
-    public bool CanActorMoveBetweenTiles(BattleMapTile fromTile, BattleMapTile toTile)
+    public bool CanActorMoveBetweenTiles(battlemap.BattleMapTile fromTile, battlemap.BattleMapTile toTile)
     {
         return (fromTile.pathfindingDistance + 1) <= moveRange;
     }

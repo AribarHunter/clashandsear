@@ -1,11 +1,17 @@
 using Godot;
 
+namespace ClashAndSear.scripts.battlemap;
+
 public partial class BattleMapGenerator : Node
 {
     public BattleMapGenerator(Node2D parentNode)
     {
         Name = "BattleMapGenerator";
         parentNode.AddChild(this);
+    }
+
+    public BattleMapGenerator()
+    {
     }
 
     /// <summary>
@@ -28,7 +34,7 @@ public partial class BattleMapGenerator : Node
     /// <param name="entity">The Entity to be positioned.</param>
     /// <param name="position">The position on the BattleMap.</param>
     /// <param name="battleMapTile">The specific BattleMapTile they'll be on.</param>
-    public void AddEntityToPosition(ClashAndSear.scripts.entity.Entity entity, Vector2I position, BattleMapTile battleMapTile)
+    public void AddEntityToPosition(entity.Entity entity, Vector2I position, BattleMapTile battleMapTile)
     {
         entity.battleMapPosition = position;
         entity.SetEntityToBattleMapTile(battleMapTile);
@@ -39,9 +45,10 @@ public partial class BattleMapGenerator : Node
     /// <summary>
     /// Silly temporary method to fill a BattleMap with a checkerboard of two textures in its tileset.
     /// </summary>
+    /// <param name="map"></param>
     /// <param name="tileOne">The position of the first tile.</param>
     /// <param name="tileTwo">The position of the second tile.</param>
-    public static void FillMapWithCheckerboard(BattleMap map, Vector2I tileOne, Vector2I tileTwo)
+    private static void FillMapWithCheckerboard(BattleMap map, Vector2I tileOne, Vector2I tileTwo)
     {
         for (int x = 0; x < map.width; x++)
         {
@@ -51,10 +58,7 @@ public partial class BattleMapGenerator : Node
                 newTile.position = new Vector2I(x, y);
                 map.tiles[x, y] = newTile;
 
-                if ((x + y) % 2 == 0)
-                    map.SetCell(new Vector2I(x, y), 0, tileOne);
-                else
-                    map.SetCell(new Vector2I(x, y), 0, tileTwo);
+                map.SetCell(new Vector2I(x, y), 0, (x + y) % 2 == 0 ? tileOne : tileTwo);
             }
         }
     }

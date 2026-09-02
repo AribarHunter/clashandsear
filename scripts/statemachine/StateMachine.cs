@@ -1,30 +1,30 @@
 using Godot;
 
-public partial class StateMachine : Node
-{
-    protected State _currentState;
-    protected bool _inTransition;
-    public SignalManager signalManager;
-    //public MainScene ms;
+namespace ClashAndSear.scripts.statemachine;
 
-    public virtual State CurrentState
+public sealed partial class StateMachine : Node
+{
+    private State _currentState;
+    private bool _inTransition;
+
+    private SignalManager _signalManager;
+
+    public State CurrentState
     {
-        get { return _currentState; }
-        set { TransitionTo(value); }
+        get => _currentState;
+        set => TransitionTo(value);
     }
 
     public StateMachine(Node parent, SignalManager signalManager)
     {
         Name = "StateMachine";
-        this.signalManager = signalManager;
+        this._signalManager = signalManager;
         parent.AddChild(this);
     }
 
-
-    // Called when the node enters the scene tree for the first time.
-    // public override void _Ready()
-    // {
-    // }
+    public StateMachine()
+    {
+    }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
@@ -42,22 +42,20 @@ public partial class StateMachine : Node
     /// This is used to transition from one State to another.
     /// </summary>
     /// <param name="value">The State we are transitioning to.</param>
-    protected virtual void TransitionTo(State value)
+    private void TransitionTo(State value)
     {
         if (_currentState == value || _inTransition)
         {
-            GD.PushError(string.Format("State Transition problem! We were in {0}, tried going to {1}. _inTransition: {2}", _currentState.ToString(), value.ToString(), _inTransition));
+            GD.PushError(
+                $"State Transition problem! We were in {_currentState}, tried going to {value}. _inTransition: {_inTransition}");
             return;
         }
         _inTransition = true;
-        if (_currentState != null)
-        {
-            _currentState.Exit();
-        }
+        _currentState?.Exit();
         _currentState = value;
         if (_currentState != null)
         {
-            _currentState.signalManager = signalManager;
+            _currentState.signalManager = _signalManager;
             _currentState.stateMachine = this;
             GameContext.Instance.currentState = _currentState;
             _currentState.Enter();

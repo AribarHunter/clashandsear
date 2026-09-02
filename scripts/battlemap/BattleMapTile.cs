@@ -1,17 +1,13 @@
-using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
+
+namespace ClashAndSear.scripts.battlemap;
 
 public partial class BattleMapTile : GodotObject
 {
-    public List<ClashAndSear.scripts.entity.Entity> entities = new();
-    public List<ClashAndSear.scripts.entity.Actor> Actors
-    {
-        get
-        {
-            return entities.OfType<ClashAndSear.scripts.entity.Actor>().ToList();
-        }
-    }
+    public readonly List<entity.Entity> entities = [];
+    public List<entity.Actor> Actors => entities.OfType<entity.Actor>().ToList();
     public Vector2I position;
     public int pathfindingDistance = int.MaxValue;
 }

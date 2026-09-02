@@ -1,5 +1,7 @@
 using Godot;
 
+namespace ClashAndSear.scripts.statemachine;
+
 public abstract partial class State : GodotObject
 {
     public SignalManager signalManager;

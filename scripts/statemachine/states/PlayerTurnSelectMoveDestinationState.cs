@@ -1,5 +1,7 @@
 using Godot;
 
+namespace ClashAndSear.scripts.statemachine.states;
+
 public partial class PlayerTurnSelectMoveDestinationState : State
 {
 
@@ -36,15 +38,10 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         stateName = StateName.PlayerTurnSelectMoveDestinationState;
     }
 
-    public override void Exit()
-    {
-        base.Exit();
-    }
-
     /// <summary>
     /// Called when the user cancels selecting the unit.
     /// </summary>
-    public void UnitSelectionWasCancelled()
+    private void UnitSelectionWasCancelled()
     {
         GameContext.Instance.selectedActor = null;
         stateMachine.CurrentState = new PlayerTurnBaseState();

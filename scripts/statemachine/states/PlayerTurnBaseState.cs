@@ -1,5 +1,7 @@
 using Godot;
 
+namespace ClashAndSear.scripts.statemachine.states;
+
 public partial class PlayerTurnBaseState : State
 {
     public override void HandleInput(InputEvent @event)
@@ -47,7 +49,7 @@ public partial class PlayerTurnBaseState : State
         signalManager.D(SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
     }
 
-    protected void PerformSelectUnitAction(ClashAndSear.scripts.entity.Actor actor)
+    protected void PerformSelectUnitAction(entity.Actor actor)
     {
         stateMachine.CurrentState = new PlayerTurnSelectMoveDestinationState();
     }

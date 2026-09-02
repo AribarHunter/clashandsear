@@ -1,13 +1,17 @@
-﻿using Godot;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using ClashAndSear.scripts.battlemap;
+using Godot;
+
+namespace ClashAndSear.scripts.pathfinding;
 
 /// <summary>
 /// Everything needed to find paths or areas!
 /// </summary>
-public class Pathfinder
+public abstract class Pathfinder
 {
-    static void ClearSearch(BattleMap map)
+    private static void ClearSearch(BattleMap map)
     {
         foreach (BattleMapTile tile in map.tiles)
         {
@@ -34,22 +38,14 @@ public class Pathfinder
             BattleMapTile currentTile = checkNow.Dequeue();
 
             // Look at its neighbors and determine if they should be added.
-            foreach(BattleMapTile potentialNextTile in map.GetCardinalNeighborTilesOf(currentTile))
+            foreach (BattleMapTile potentialNextTile in map.GetCardinalNeighborTilesOf(currentTile).Where(potentialNextTile => potentialNextTile != null && potentialNextTile.pathfindingDistance > currentTile.pathfindingDistance + 1).Where(potentialNextTile => addTile(currentTile, potentialNextTile)))
             {
-                // We only care about valid tiles that are equal or further away from the current tile. I think.
-                if (potentialNextTile == null || potentialNextTile.pathfindingDistance <= currentTile.pathfindingDistance + 1)
-                    continue;
-
-                // Based on the results of addTile, we'll add the tile to the PathMap.
-                if(addTile(currentTile, potentialNextTile))
-                {
-                    // Figure out its distance, then create a PathNode that we came from there.
-                    potentialNextTile.pathfindingDistance = currentTile.pathfindingDistance + 1;
-                    PathNode pathNode = new(potentialNextTile, potentialNextTile.pathfindingDistance);
-                    // Add to the result and queue tiles for the next pass.
-                    result.valueToKeyPath[potentialNextTile] = pathNode;
-                    checkNext.Enqueue(potentialNextTile);
-                }
+                // Figure out its distance, then create a PathNode that we came from there.
+                potentialNextTile.pathfindingDistance = currentTile.pathfindingDistance + 1;
+                PathNode pathNode = new(potentialNextTile, potentialNextTile.pathfindingDistance);
+                // Add to the result and queue tiles for the next pass.
+                result.valueToKeyPath[potentialNextTile] = pathNode;
+                checkNext.Enqueue(potentialNextTile);
             }
 
             //If we're out of tiles to check, we swap checkNow and checkNext.
@@ -64,10 +60,8 @@ public class Pathfinder
     /// </summary>
     /// <param name="firstRef">First queue.</param>
     /// <param name="secondRef">Second queue.</param>
-    static void SwapReference(ref Queue<BattleMapTile> firstRef, ref Queue<BattleMapTile> secondRef)
+    private static void SwapReference(ref Queue<BattleMapTile> firstRef, ref Queue<BattleMapTile> secondRef)
     {
-        Queue<BattleMapTile> tempRef = firstRef;
-        firstRef = secondRef;
-        secondRef = tempRef;
+        (firstRef, secondRef) = (secondRef, firstRef);
     }
 }

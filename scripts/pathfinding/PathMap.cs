@@ -1,25 +1,31 @@
-﻿using Godot;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Godot;
+
+namespace ClashAndSear.scripts.pathfinding;
 
 public partial class PathMap : GodotObject
 {
-    public BattleMapTile startTile;
-    public BattleMapTile endTile;
-    public Dictionary<BattleMapTile, PathNode> valueToKeyPath = new();
+    private battlemap.BattleMapTile _startTile;
+    private battlemap.BattleMapTile _endTile;
+    public readonly Dictionary<battlemap.BattleMapTile, PathNode> valueToKeyPath = new();
 
-    public PathMap(BattleMapTile startTile, BattleMapTile endTile)
+    public PathMap(battlemap.BattleMapTile startTile, battlemap.BattleMapTile endTile)
     {
-        this.startTile = startTile;
-        this.endTile = endTile;
+        this._startTile = startTile;
+        this._endTile = endTile;
         valueToKeyPath.Add(startTile, new PathNode(null, 0));
+    }
+
+    public PathMap()
+    {
     }
 
     /// <summary>
     /// Converts valueToKeyPath into a List of BattleMapTiles.
     /// </summary>
     /// <returns>All BattleMapTiles in valueToKeyPath.</returns>
-    public List<BattleMapTile> ToTileList()
+    private List<battlemap.BattleMapTile> ToTileList()
     {
         return valueToKeyPath.Keys.ToList();
     }
@@ -30,11 +36,6 @@ public partial class PathMap : GodotObject
     /// <returns>All positions in valueToKeyPath.</returns>
     public List<Vector2I> ToVector2IList()
     {
-        List<Vector2I> result = new List<Vector2I>();
-        foreach (BattleMapTile tile in ToTileList())
-        {
-            result.Add(tile.position);
-        }
-        return result;
+        return ToTileList().Select(tile => tile.position).ToList();
     }
 }

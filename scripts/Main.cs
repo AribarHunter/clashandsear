@@ -12,15 +12,15 @@ public partial class Main : Node2D
         SignalManager signalManager = new(this);
 
         // Let's make something to hold game context.
+        // ReSharper disable once UnusedVariable
         GameContext gameContext = new(this);
 
         // Let's make a level.
-        string name = "TestMap";
-        BattleMapGenerator battleMapGenerator = new(this);
-        BattleMap testMap = battleMapGenerator.CreateBattleMap(name);
+        battlemap.BattleMapGenerator battleMapGenerator = new(this);
+        battlemap.BattleMap testMap = battleMapGenerator.CreateBattleMap("TestMap");
 
         // Let's make a player and add them?
-         var test = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
+        PackedScene test = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
         Actor player = test.Instantiate<Actor>();
         battleMapGenerator.AddEntityToPosition(player, new Vector2I(2, 6), testMap.tiles[2, 6]);
         
@@ -31,12 +31,12 @@ public partial class Main : Node2D
         battleMapGenerator.AddEntityToPosition(aThirdGal, new Vector2I(4, 4), testMap.tiles[4, 4]);
 
         // 's add a cursor?
-        BattleMapCursor battleMapCursor = (BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
+        ui.BattleMapCursor battleMapCursor = (ui.BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
         testMap.AddChild(battleMapCursor);
 
         // And here's the state machine stuff again.
-        StateMachine stateMachine = new(this, signalManager);
-        stateMachine.CurrentState = new PlayerTurnBaseState();
+        statemachine.StateMachine stateMachine = new(this, signalManager);
+        stateMachine.CurrentState = new statemachine.states.PlayerTurnBaseState();
 
     }
 

@@ -5,8 +5,8 @@ public partial class SignalManager : Node
 {
     [Signal] public delegate void PerformConfirmActionEventHandler(Vector2I delta);
     [Signal] public delegate void PerformMoveActionEventHandler(Vector2I delta);
-    [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(PathMap tiles);
-    [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(PathMap tiles);
+    [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(ClashAndSear.scripts.pathfinding.PathMap tiles);
+    [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(ClashAndSear.scripts.pathfinding.PathMap tiles);
     [Signal] public delegate void PerformHighlightIfHoveringOverActorActionEventHandler();
     [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
 

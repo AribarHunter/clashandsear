@@ -1,4 +1,4 @@
-﻿using System;
+﻿namespace ClashAndSear.scripts.statemachine;
 
 public enum StateName
 {

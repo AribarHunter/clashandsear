@@ -1,25 +1,27 @@
-using Godot;
 using System.Collections.Generic;
+using Godot;
+
+namespace ClashAndSear.scripts.battlemap;
 
 public partial class BattleMap : TileMapLayer
 {
 
     public int width;
     public int height;
-    public BattleMapTile[,] tiles;
-    public BattleMapHighlight battleMapHighlight;
+    public readonly BattleMapTile[,] tiles;
+    private BattleMapHighlight _battleMapHighlight;
     public AStarGrid2D astarGrid;
 
     /// <summary>
     /// Convenience array for addition to get the direct neighbors to a tile.
     /// </summary>
-    readonly Vector2I[] cardinalNeighbors = new Vector2I[4]
-    {
+    private readonly Vector2I[] _cardinalNeighbors =
+    [
         new(0, 1),
         new(0, -1),
         new(1, 0),
         new(-1, 0)
-    };
+    ];
 
     public BattleMap(int width, int height, string name, BattleMapHighlight battleMapHighlight)
     {
@@ -30,7 +32,7 @@ public partial class BattleMap : TileMapLayer
         tiles = new BattleMapTile[width, height];
 
         // Set up BattleMapHighlight.
-        this.battleMapHighlight = battleMapHighlight;
+        this._battleMapHighlight = battleMapHighlight;
         AddChild(battleMapHighlight);
 
         // Set up AStarGrid stuff.
@@ -43,7 +45,11 @@ public partial class BattleMap : TileMapLayer
         astarGrid.Update();
 
         // Hardcoded TileSet for now.
-        Set(PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", PropertyName.TileSet));
+        Set(TileMapLayer.PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", TileMapLayer.PropertyName.TileSet));
+    }
+
+    public BattleMap()
+    {
     }
 
     /// <summary>
@@ -51,11 +57,9 @@ public partial class BattleMap : TileMapLayer
     /// </summary>
     /// <param name="tilePosition">The position of the BattleMapTile.</param>
     /// <returns>True if there's an Entity or False if there's not.</returns>
-    public bool DoesPositionContainEntity(Vector2I tilePosition)
+    private bool DoesPositionContainEntity(Vector2I tilePosition)
     {
-        if (tiles[tilePosition.X, tilePosition.Y].entities.Count > 0)
-            return true;
-        return false;
+        return tiles[tilePosition.X, tilePosition.Y].entities.Count > 0;
     }
 
     /// <summary>
@@ -65,9 +69,7 @@ public partial class BattleMap : TileMapLayer
     /// <returns>True if there's an Actor or False if there's not.</returns>
     public bool DoesPositionContainActor(Vector2I tilePosition)
     {
-        if (tiles[tilePosition.X, tilePosition.Y].Actors.Count > 0)
-            return true;
-        return false;
+        return tiles[tilePosition.X, tilePosition.Y].Actors.Count > 0;
     }
 
     /// <summary>
@@ -75,7 +77,7 @@ public partial class BattleMap : TileMapLayer
     /// </summary>
     /// <param name="position">The BattleMapTile position to be checked.</param>
     /// <returns>A list of all Actors in the tile position.</returns>
-    public List<ClashAndSear.scripts.entity.Actor> GetActorsInPosition(Vector2I position)
+    public List<entity.Actor> GetActorsInPosition(Vector2I position)
     {
         return tiles[position.X, position.Y].Actors;
     }
@@ -87,9 +89,7 @@ public partial class BattleMap : TileMapLayer
     /// <returns>Returns the BattleMapTile of a position.</returns>
     public BattleMapTile GetTileAt(Vector2I position)
     {
-        if(PositionIsInbound(position))
-            return tiles[position.X, position.Y];
-        return null;
+        return PositionIsInbound(position) ? tiles[position.X, position.Y] : null;
     }
 
     /// <summary>
@@ -97,11 +97,11 @@ public partial class BattleMap : TileMapLayer
     /// </summary>
     /// <param name="position">The position of the BattleMapTile we're checking.</param>
     /// <returns>The neighboring BattleMapTiles. Note this only returns inbound tiles!</returns>
-    public List<BattleMapTile> GetCardinalNeighborTilesOf(Vector2I position)
+    private List<BattleMapTile> GetCardinalNeighborTilesOf(Vector2I position)
     {
-        List<BattleMapTile> result = new();
+        List<BattleMapTile> result = [];
         for (int i = 0; i < 4; i++)
-            result.Add(GetTileAt(position + cardinalNeighbors[i]));
+            result.Add(GetTileAt(position + _cardinalNeighbors[i]));
         return result;
     }
 
@@ -115,11 +115,11 @@ public partial class BattleMap : TileMapLayer
         return GetCardinalNeighborTilesOf(tile.position);
     }
 
-   /// <summary>
-   /// Checks if a position is inside the bounds of this level.
-   /// </summary>
-   /// <param name="position">The position we're checking.</param>
-   /// <returns>True for inbounds, false for outside.</returns>
+    /// <summary>
+    /// Checks if a position is inside the bounds of this level.
+    /// </summary>
+    /// <param name="position">The position we're checking.</param>
+    /// <returns>True for inbounds, false for outside.</returns>
     public bool PositionIsInbound(Vector2I position)
     {
         return (0 <= position.X && position.X < width &&
