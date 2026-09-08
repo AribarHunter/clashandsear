@@ -1,3 +1,4 @@
+using ClashAndSear.scripts.utility;
 using Godot;
 
 namespace ClashAndSear.scripts.entity;

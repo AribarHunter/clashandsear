@@ -1,12 +1,13 @@
 using Godot;
-using System.Collections.Generic;
+
+namespace ClashAndSear.scripts.utility;
 
 public partial class SignalManager : Node
 {
     [Signal] public delegate void PerformConfirmActionEventHandler(Vector2I delta);
     [Signal] public delegate void PerformMoveActionEventHandler(Vector2I delta);
-    [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(ClashAndSear.scripts.pathfinding.PathMap tiles);
-    [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(ClashAndSear.scripts.pathfinding.PathMap tiles);
+    [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(pathfinding.PathMap tiles);
+    [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(pathfinding.PathMap tiles);
     [Signal] public delegate void PerformHighlightIfHoveringOverActorActionEventHandler();
     [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
 
@@ -16,6 +17,10 @@ public partial class SignalManager : Node
     {
         Name = "SignalManager";
         parentNode.AddChild(this);
+    }
+
+    public SignalManager()
+    {
     }
 
     public override void _Ready()

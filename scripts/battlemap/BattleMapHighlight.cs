@@ -8,7 +8,7 @@ public partial class BattleMapHighlight : TileMapLayer
     //public int width;
     //public int height;
 
-    private SignalManager _signalManager;
+    private utility.SignalManager _signalManager;
     private Vector2I _movementHighlightTile;
 
     public BattleMapHighlight()
@@ -23,9 +23,9 @@ public partial class BattleMapHighlight : TileMapLayer
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        _signalManager = SignalManager.Instance;
-        _signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
-        _signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
+        _signalManager = utility.SignalManager.Instance;
+        _signalManager.C(utility.SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
+        _signalManager.C(utility.SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
     }
 
     /// <summary>

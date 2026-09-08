@@ -10,7 +10,7 @@ namespace ClashAndSear.scripts.ui;
 public partial class BattleMapCursor : Node2D
 {
     private battlemap.BattleMap _battleMap;
-    private SignalManager _signalManager;
+    private utility.SignalManager _signalManager;
 
     private Vector2I _tilePosition;
 
@@ -21,18 +21,18 @@ public partial class BattleMapCursor : Node2D
         Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(Vector2I.Zero));
         _tilePosition = _battleMap.LocalToMap(Position);
 
-        _signalManager = SignalManager.Instance;
-        _signalManager.C(SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
-        _signalManager.C(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString(), this, nameof(PerformHighlightIfHoveringOverActorAction));
-        _signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
+        _signalManager = utility.SignalManager.Instance;
+        _signalManager.C(utility.SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
+        _signalManager.C(utility.SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString(), this, nameof(PerformHighlightIfHoveringOverActorAction));
+        _signalManager.C(utility.SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
     }
 
     protected void PerformConfirmAction()
     {
         if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
         List<entity.Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
-        GameContext.Instance.selectedActor = actors.First();
-        _signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
+        utility.GameContext.Instance.selectedActor = actors.First();
+        _signalManager.E(utility.SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ public partial class BattleMapCursor : Node2D
             _tilePosition = newPosition;
             Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(_tilePosition));
 
-            switch (GameContext.Instance.currentState.stateName)
+            switch (utility.GameContext.Instance.currentState.stateName)
             {
                 case StateName.PlayerTurnBaseState:
                     PerformHighlightIfHoveringOverActorAction();
@@ -68,11 +68,11 @@ public partial class BattleMapCursor : Node2D
     /// </summary>
     private void PerformHighlightIfHoveringOverActorAction()
     {
-        _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+        _signalManager.E(utility.SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
         if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
         List<entity.Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
         pathfinding.PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
 
-        _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+        _signalManager.E(utility.SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
     }
 }

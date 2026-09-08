@@ -11,19 +11,19 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         // Movement
         if (Input.IsActionJustPressed("primary_up"))
         {
-            signalManager.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Up);
+            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Up);
         }
         else if (Input.IsActionJustPressed("primary_down"))
         {
-            signalManager.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Down);
+            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Down);
         }
         else if (Input.IsActionJustPressed("primary_left"))
         {
-            signalManager.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Left);
+            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Left);
         }
         else if (Input.IsActionJustPressed("primary_right"))
         {
-            signalManager.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
+            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
         }
         else if (Input.IsActionJustPressed("cancel"))
         {
@@ -43,7 +43,7 @@ public partial class PlayerTurnSelectMoveDestinationState : State
     /// </summary>
     private void UnitSelectionWasCancelled()
     {
-        GameContext.Instance.selectedActor = null;
+        utility.GameContext.Instance.selectedActor = null;
         stateMachine.CurrentState = new PlayerTurnBaseState();
     }
 }

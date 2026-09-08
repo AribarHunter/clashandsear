@@ -1,8 +1,10 @@
 using Godot;
 
-public partial class CoordinateConverter
+namespace ClashAndSear.scripts.utility;
+
+public static class CoordinateConverter
 {
-    const int tileSize = 16;
+    private const int TileSize = 16;
 
     /// <summary>
     /// Determine what tile lies at a pixel location.
@@ -11,7 +13,7 @@ public partial class CoordinateConverter
     /// <returns></returns>
     public static Vector2I FindTileAtPixel(Vector2I pixel)
     {
-        return new Vector2I(pixel.X / tileSize, pixel.Y / tileSize);
+        return new Vector2I(pixel.X / TileSize, pixel.Y / TileSize);
     }
 
     /// <summary>
@@ -23,6 +25,6 @@ public partial class CoordinateConverter
     /// <returns></returns>
     public static Vector2I FindPixelAtTile(Vector2I tile, int xOffset = 0, int yOffset = 0)
     {
-        return new Vector2I(tile.X * tileSize + xOffset, tile.Y * tileSize + yOffset);
+        return new Vector2I(tile.X * TileSize + xOffset, tile.Y * TileSize + yOffset);
     }
 }

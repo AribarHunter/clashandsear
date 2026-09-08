@@ -9,11 +9,11 @@ public partial class Main : Node2D
     public override void _Ready()
     {
         // Let's make a signal manager.
-        SignalManager signalManager = new(this);
+        utility.SignalManager signalManager = new(this);
 
         // Let's make something to hold game context.
         // ReSharper disable once UnusedVariable
-        GameContext gameContext = new(this);
+        utility.GameContext gameContext = new(this);
 
         // Let's make a level.
         battlemap.BattleMapGenerator battleMapGenerator = new(this);

@@ -7,7 +7,7 @@ public sealed partial class StateMachine : Node
     private State _currentState;
     private bool _inTransition;
 
-    private SignalManager _signalManager;
+    private utility.SignalManager _signalManager;
 
     public State CurrentState
     {
@@ -15,7 +15,7 @@ public sealed partial class StateMachine : Node
         set => TransitionTo(value);
     }
 
-    public StateMachine(Node parent, SignalManager signalManager)
+    public StateMachine(Node parent, utility.SignalManager signalManager)
     {
         Name = "StateMachine";
         this._signalManager = signalManager;
@@ -57,7 +57,7 @@ public sealed partial class StateMachine : Node
         {
             _currentState.signalManager = _signalManager;
             _currentState.stateMachine = this;
-            GameContext.Instance.currentState = _currentState;
+            utility.GameContext.Instance.currentState = _currentState;
             _currentState.Enter();
         }
         _inTransition = false;

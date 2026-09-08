@@ -1,10 +1,46 @@
 [gd_scene format=3 uid="uid://baeadlbt7vta8"]
 
-[ext_resource type="PackedScene" uid="uid://bws75g1tcklos" path="res://resources/animatedSprite2D/ally.tscn" id="1_jjf26"]
 [ext_resource type="Script" uid="uid://s0yduvckvjfn" path="res://scripts/entity/Actor.cs" id="1_qiu3x"]
+[ext_resource type="Texture2D" uid="uid://bnmjf3yqv3sls" path="res://resources/sprites/Mech1Ally small.png" id="2_qiu3x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dp1l"]
+atlas = ExtResource("2_qiu3x")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lfm2"]
+atlas = ExtResource("2_qiu3x")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abvoy"]
+atlas = ExtResource("2_qiu3x")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7s1ka"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1dp1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lfm2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abvoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lfm2")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Actor" type="Node2D" unique_id=950534224]
 script = ExtResource("1_qiu3x")
 
-[node name="AnimatedSprite2D" parent="." unique_id=663445848 instance=ExtResource("1_jjf26")]
-autoplay = "new_animation"
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1791275871]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_7s1ka")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.64125943

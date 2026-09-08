@@ -1,6 +1,0 @@
-[gd_resource type="AnimatedTexture" format=3 uid="uid://boiakw0ui7dpk"]
-
-[ext_resource type="Texture2D" uid="uid://dhakgc3wbpdv4" path="res://resources/sprites/Mech1Ally.png" id="1_044eo"]
-
-[resource]
-frame_0/texture = ExtResource("1_044eo")

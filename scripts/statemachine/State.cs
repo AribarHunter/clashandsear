@@ -4,7 +4,7 @@ namespace ClashAndSear.scripts.statemachine;
 
 public abstract partial class State : GodotObject
 {
-    public SignalManager signalManager;
+    public utility.SignalManager signalManager;
     public StateMachine stateMachine;
 
     internal StateName stateName;
