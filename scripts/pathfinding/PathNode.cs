@@ -1,7 +1,8 @@
-﻿namespace ClashAndSear.scripts.pathfinding;
-
-public class PathNode(battlemap.BattleMapTile previousTile, int costSoFar)
+﻿namespace ClashAndSear
 {
-    public battlemap.BattleMapTile previousTile = previousTile;
-    public int costSoFar = costSoFar;
+    public class PathNode(BattleMapTile previousTile, int costSoFar)
+    {
+        public BattleMapTile previousTile = previousTile;
+        public int costSoFar = costSoFar;
+    }
 }

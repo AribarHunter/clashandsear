@@ -1,49 +1,50 @@
 using Godot;
 
-namespace ClashAndSear.scripts.statemachine.states;
-
-public partial class SelectMoveDestinationState : State
+namespace ClashAndSear
 {
-
-    public override void HandleInput(InputEvent @event)
+    public partial class SelectMoveDestinationState : State
     {
-        base.HandleInput(@event);
-        // Movement
-        if (Input.IsActionJustPressed("primary_up"))
-        {
-            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Up);
-        }
-        else if (Input.IsActionJustPressed("primary_down"))
-        {
-            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Down);
-        }
-        else if (Input.IsActionJustPressed("primary_left"))
-        {
-            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Left);
-        }
-        else if (Input.IsActionJustPressed("primary_right"))
-        {
-            signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
-        }
-        else if (Input.IsActionJustPressed("cancel"))
-        {
-            GD.PrintRich("[b]HandleInput (SelectMoveDestinationState):[/b] Cancel pressed.");
-            UnitSelectionWasCancelled();
-        }
-    }
 
-    public override void Enter()
-    {
-        base.Enter();
-        stateName = StateName.SelectMoveDestinationState;
-    }
+        public override void HandleInput(InputEvent @event)
+        {
+            base.HandleInput(@event);
+            // Movement
+            if (Input.IsActionJustPressed("primary_up"))
+            {
+                SignalManager.Instance.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Up);
+            }
+            else if (Input.IsActionJustPressed("primary_down"))
+            {
+                SignalManager.Instance.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Down);
+            }
+            else if (Input.IsActionJustPressed("primary_left"))
+            {
+                SignalManager.Instance.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Left);
+            }
+            else if (Input.IsActionJustPressed("primary_right"))
+            {
+                SignalManager.Instance.E(SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
+            }
+            else if (Input.IsActionJustPressed("cancel"))
+            {
+                GD.PrintRich("[b]HandleInput (SelectMoveDestinationState):[/b] Cancel pressed.");
+                UnitSelectionWasCancelled();
+            }
+        }
 
-    /// <summary>
-    /// Called when the user cancels selecting the unit.
-    /// </summary>
-    private void UnitSelectionWasCancelled()
-    {
-        utility.GameContext.Instance.selectedActor = null;
-        utility.GameContext.Instance.stateMachine.CurrentState  = new BaseTurnState();
+        public override void Enter()
+        {
+            base.Enter();
+            stateName = StateName.SelectMoveDestinationState;
+        }
+
+        /// <summary>
+        /// Called when the user cancels selecting the unit.
+        /// </summary>
+        private void UnitSelectionWasCancelled()
+        {
+            GameContext.Instance.selectedActor = null;
+            GameContext.Instance.stateMachine.CurrentState  = new BaseTurnState();
+        }
     }
 }

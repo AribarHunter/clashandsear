@@ -3,4 +3,5 @@
   &lt;Project Location="/media/newsdd/Code/clashandsear" Presentation="&amp;lt;ClashAndSear&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Aseprite/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=statemachine/@EntryIndexedValue">True</s:Boolean>
 	</wpf:ResourceDictionary>

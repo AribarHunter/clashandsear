@@ -1,78 +1,77 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ClashAndSear.scripts.pathfinding;
-using ClashAndSear.scripts.statemachine;
 using Godot;
 
-namespace ClashAndSear.scripts.ui;
-
-public partial class BattleMapCursor : Node2D
+namespace ClashAndSear
 {
-    private battlemap.BattleMap _battleMap;
-    private utility.SignalManager _signalManager;
-
-    private Vector2I _tilePosition;
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public partial class BattleMapCursor : Node2D
     {
-        _battleMap = GetParent<battlemap.BattleMap>();
-        Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(Vector2I.Zero));
-        _tilePosition = _battleMap.LocalToMap(Position);
+        private BattleMap _battleMap;
+        private SignalManager _signalManager;
 
-        _signalManager = utility.SignalManager.Instance;
-        _signalManager.C(utility.SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
-        _signalManager.C(utility.SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString(), this, nameof(PerformHighlightIfHoveringOverActorAction));
-        _signalManager.C(utility.SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
-    }
+        private Vector2I _tilePosition;
 
-    protected void PerformConfirmAction()
-    {
-        if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
-        List<entity.Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
-        utility.GameContext.Instance.selectedActor = actors.First();
-        _signalManager.E(utility.SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
-    }
-
-    /// <summary>
-    /// Called when we need to move the BattleMapCursor.
-    /// </summary>
-    /// <param name="delta">The difference where we're moving.</param>
-    protected void PerformMoveAction(Vector2I delta)
-    {
-
-        Vector2I newPosition = _tilePosition + delta;
-        if (_battleMap.PositionIsInbound(newPosition))
+        // Called when the node enters the scene tree for the first time.
+        public override void _Ready()
         {
-            _tilePosition = newPosition;
-            Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(_tilePosition));
+            _battleMap = GetParent<BattleMap>();
+            Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(Vector2I.Zero));
+            _tilePosition = _battleMap.LocalToMap(Position);
 
-            switch (utility.GameContext.Instance.stateMachine.CurrentState.stateName)
-            {
-                case StateName.BaseTurnState:
-                    PerformHighlightIfHoveringOverActorAction();
-                    break;
-                case StateName.SelectMoveDestinationState:
-                    GD.Print("We'll do something here.");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            _signalManager = SignalManager.Instance;
+            _signalManager.C(SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
+            _signalManager.C(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString(), this, nameof(PerformHighlightIfHoveringOverActorAction));
+            _signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
         }
-        GD.PrintRich("A* Position InBounds?: {0} {1}", newPosition.ToString(), _battleMap.astarGrid.IsInBoundsv(newPosition));
-    }
 
-    /// <summary>
-    /// Removes all highlights, then if an actor is in the current position it adds a highlight.
-    /// </summary>
-    private void PerformHighlightIfHoveringOverActorAction()
-    {
-        _signalManager.E(utility.SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
-        if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
-        List<entity.Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
-        PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
+        protected void PerformConfirmAction()
+        {
+            if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
+            List<Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
+            GameContext.Instance.selectedActor = actors.First();
+            _signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
+        }
 
-        _signalManager.E(utility.SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+        /// <summary>
+        /// Called when we need to move the BattleMapCursor.
+        /// </summary>
+        /// <param name="delta">The difference where we're moving.</param>
+        protected void PerformMoveAction(Vector2I delta)
+        {
+
+            Vector2I newPosition = _tilePosition + delta;
+            if (_battleMap.PositionIsInbound(newPosition))
+            {
+                _tilePosition = newPosition;
+                Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(_tilePosition));
+
+                switch (GameContext.Instance.stateMachine.CurrentState.stateName)
+                {
+                    case StateName.BaseTurnState:
+                        PerformHighlightIfHoveringOverActorAction();
+                        break;
+                    case StateName.SelectMoveDestinationState:
+                        GD.Print("We'll do something here.");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            GD.PrintRich("A* Position InBounds?: {0} {1}", newPosition.ToString(), _battleMap.astarGrid.IsInBoundsv(newPosition));
+        }
+
+        /// <summary>
+        /// Removes all highlights, then if an actor is in the current position it adds a highlight.
+        /// </summary>
+        private void PerformHighlightIfHoveringOverActorAction()
+        {
+            _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+            if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
+            List<Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
+            PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
+
+            _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+        }
     }
 }

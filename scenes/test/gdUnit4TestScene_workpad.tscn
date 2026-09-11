@@ -11,5 +11,8 @@ unique_name_in_owner = true
 stateMachine = NodePath("../StateMachine")
 
 [node name="SignalManager" parent="." unique_id=2127893355 instance=ExtResource("2_tma4s")]
+unique_name_in_owner = true
 
-[node name="StateMachine" parent="." unique_id=1344171719 instance=ExtResource("3_1cddr")]
+[node name="StateMachine" parent="." unique_id=1344171719 node_paths=PackedStringArray("_signalManager") instance=ExtResource("3_1cddr")]
+unique_name_in_owner = true
+_signalManager = NodePath("../SignalManager")

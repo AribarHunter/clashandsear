@@ -1,7 +1,8 @@
-﻿namespace ClashAndSear.scripts.statemachine;
-
-public enum StateName
+﻿namespace ClashAndSear
 {
-    BaseTurnState,
-    SelectMoveDestinationState
+    public enum StateName
+    {
+        BaseTurnState,
+        SelectMoveDestinationState
+    }
 }
