@@ -48,12 +48,12 @@ public partial class BattleMapCursor : Node2D
             _tilePosition = newPosition;
             Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(_tilePosition));
 
-            switch (utility.GameContext.Instance.currentState.stateName)
+            switch (utility.GameContext.Instance.stateMachine.CurrentState.stateName)
             {
-                case StateName.PlayerTurnBaseState:
+                case StateName.BaseTurnState:
                     PerformHighlightIfHoveringOverActorAction();
                     break;
-                case StateName.PlayerTurnSelectMoveDestinationState:
+                case StateName.SelectMoveDestinationState:
                     GD.Print("We'll do something here.");
                     break;
                 default:
@@ -71,7 +71,7 @@ public partial class BattleMapCursor : Node2D
         _signalManager.E(utility.SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
         if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
         List<entity.Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
-        pathfinding.PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
+        PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
 
         _signalManager.E(utility.SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
     }

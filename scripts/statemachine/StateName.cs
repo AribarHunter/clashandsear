@@ -2,6 +2,6 @@
 
 public enum StateName
 {
-    PlayerTurnBaseState,
-    PlayerTurnSelectMoveDestinationState
+    BaseTurnState,
+    SelectMoveDestinationState
 }

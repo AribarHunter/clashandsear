@@ -54,8 +54,10 @@ public partial class BattleMapHighlight : TileMapLayer
     /// </summary>
     private void PerformBattleMapHighlightRemoveAll()
     {
+        GD.PrintRich("PerformBattleMapHighlightRemoveAll");
         if (GetUsedCells().Count > 0)
         {
+            GD.PrintRich("GOTTACLEAR");
             Clear();
         }
     }

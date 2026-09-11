@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cfwueif4yabjn"]
+
+[ext_resource type="Script" uid="uid://bomgt1b4unv8y" path="res://scripts/utility/GameContext.cs" id="1_ftfjq"]
+
+[node name="GameContext" type="Node2D" unique_id=366218736]
+script = ExtResource("1_ftfjq")

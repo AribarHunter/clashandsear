@@ -2,9 +2,8 @@ using Godot;
 
 namespace ClashAndSear.scripts.statemachine.states;
 
-public partial class PlayerTurnSelectMoveDestinationState : State
+public partial class BaseTurnState : State
 {
-
     public override void HandleInput(InputEvent @event)
     {
         base.HandleInput(@event);
@@ -25,25 +24,30 @@ public partial class PlayerTurnSelectMoveDestinationState : State
         {
             signalManager.E(utility.SignalManager.SignalName.PerformMoveAction.ToString(), Vector2.Right);
         }
-        else if (Input.IsActionJustPressed("cancel"))
+        else if (Input.IsActionJustPressed("confirm"))
         {
-            GD.PrintRich("[b]HandleInput (PlayerTurnSelectMoveDestinationState):[/b] Cancel pressed.");
-            UnitSelectionWasCancelled();
+            GD.PrintRich("[b]HandleInput (BaseTurnState):[/b] Confirm Pressed. Emitting PerformConfirmAction signal.");
+            signalManager.E(utility.SignalManager.SignalName.PerformConfirmAction.ToString());
         }
     }
 
     public override void Enter()
     {
         base.Enter();
-        stateName = StateName.PlayerTurnSelectMoveDestinationState;
+        stateName = StateName.BaseTurnState;
+        signalManager.C(utility.SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
+        signalManager.E(utility.SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString());
+
     }
 
-    /// <summary>
-    /// Called when the user cancels selecting the unit.
-    /// </summary>
-    private void UnitSelectionWasCancelled()
+    public override void Exit()
     {
-        utility.GameContext.Instance.selectedActor = null;
-        stateMachine.CurrentState = new PlayerTurnBaseState();
+        base.Exit();
+        signalManager.D(utility.SignalManager.SignalName.PerformSelectUnitAction.ToString(), this, nameof(PerformSelectUnitAction));
+    }
+
+    protected void PerformSelectUnitAction(entity.Actor actor)
+    {
+        stateMachine.CurrentState = new SelectMoveDestinationState();
     }
 }

@@ -1,4 +1,5 @@
-﻿using Godot;
+﻿using ClashAndSear.scripts.statemachine;
+using Godot;
 
 namespace ClashAndSear.scripts.utility;
 
@@ -7,7 +8,9 @@ public partial class GameContext : Node
     public static GameContext Instance { get; private set; }
 
     public entity.Actor selectedActor;
-    public statemachine.State currentState;
+    
+    // TODO change to use this instead of currentState?
+    [Export] public StateMachine stateMachine;
 
     public GameContext(Node2D parentNode)
     {

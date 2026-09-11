@@ -1,19 +1,18 @@
 using ClashAndSear.scripts.entity;
+using ClashAndSear.scripts.utility;
 using Godot;
 
 namespace ClashAndSear.scripts;
 
 public partial class Main : Node2D
 {
-    // Called when the node enters the scene tree for the first time.
+    private SignalManager _signalManager;
+    private GameContext _gameContext;
+    
     public override void _Ready()
     {
-        // Let's make a signal manager.
-        utility.SignalManager signalManager = new(this);
-
-        // Let's make something to hold game context.
-        // ReSharper disable once UnusedVariable
-        utility.GameContext gameContext = new(this);
+        _signalManager = GetNode<SignalManager>("%SignalManager");
+        _gameContext = GetNode<GameContext>("%GameContext");
 
         // Let's make a level.
         battlemap.BattleMapGenerator battleMapGenerator = new(this);
@@ -33,15 +32,7 @@ public partial class Main : Node2D
         // 's add a cursor?
         ui.BattleMapCursor battleMapCursor = (ui.BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
         testMap.AddChild(battleMapCursor);
-
-        // And here's the state machine stuff again.
-        statemachine.StateMachine stateMachine = new(this, signalManager);
-        stateMachine.CurrentState = new statemachine.states.PlayerTurnBaseState();
-
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
+        
+        utility.GameContext.Instance.stateMachine.CurrentState = new statemachine.states.BaseTurnState();
     }
 }

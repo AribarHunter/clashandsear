@@ -1,6 +1,20 @@
 [gd_scene format=3 uid="uid://1e7qvibslfu6"]
 
 [ext_resource type="Script" uid="uid://plpg2bpn2wl8" path="res://scripts/Main.cs" id="1_e0hrm"]
+[ext_resource type="PackedScene" uid="uid://cfwueif4yabjn" path="res://scenes/utility/GameContext.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://be045wwslf87s" path="res://scenes/utility/SignalManager.tscn" id="3_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://dmkbklgb3yjtf" path="res://scenes/statemachine/StateMachine.tscn" id="4_tefeu"]
 
 [node name="Main" type="Node2D" unique_id=185483483]
 script = ExtResource("1_e0hrm")
+
+[node name="GameContext" parent="." unique_id=366218736 node_paths=PackedStringArray("stateMachine") instance=ExtResource("2_jyhfs")]
+unique_name_in_owner = true
+stateMachine = NodePath("../StateMachine")
+
+[node name="SignalManager" parent="." unique_id=2127893355 instance=ExtResource("3_tbgi4")]
+unique_name_in_owner = true
+
+[node name="StateMachine" parent="." unique_id=1344171719 node_paths=PackedStringArray("_signalManager") instance=ExtResource("4_tefeu")]
+unique_name_in_owner = true
+_signalManager = NodePath("../SignalManager")
