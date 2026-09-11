@@ -5,7 +5,6 @@ namespace ClashAndSear
     public abstract partial class State : GodotObject
     {
         public StateMachine stateMachine;
-        internal StateName stateName;
 
         /// <summary>
         /// The StateMachine will call this in _Process.

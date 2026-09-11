@@ -35,7 +35,6 @@ namespace ClashAndSear
         public override void Enter()
         {
             base.Enter();
-            stateName = StateName.SelectMoveDestinationState;
         }
 
         /// <summary>

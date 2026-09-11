@@ -34,11 +34,9 @@ namespace ClashAndSear
         public override void Enter()
         {
             base.Enter();
-            stateName = StateName.BaseTurnState;
             
             SignalManager.Instance.C(SignalManager.SignalName.PerformSelectUnitAction, this, nameof(PerformSelectUnitAction));
             SignalManager.Instance.E(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction);
-
         }
 
         public override void Exit()

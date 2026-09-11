@@ -46,12 +46,12 @@ namespace ClashAndSear
                 _tilePosition = newPosition;
                 Set(Node2D.PropertyName.Position, _battleMap.MapToLocal(_tilePosition));
 
-                switch (GameContext.Instance.stateMachine.CurrentState.stateName)
+                switch (GameContext.Instance.stateMachine.CurrentState)
                 {
-                    case StateName.BaseTurnState:
+                    case BaseTurnState:
                         PerformHighlightIfHoveringOverActorAction();
                         break;
-                    case StateName.SelectMoveDestinationState:
+                    case SelectMoveDestinationState:
                         GD.Print("We'll do something here.");
                         break;
                     default:
