@@ -2,10 +2,9 @@ using System.Threading.Tasks;
 using GdUnit4;
 using Godot;
 using static GdUnit4.Assertions;
-// ReSharper disable CheckNamespace
 // ReSharper disable UnusedMember.Global
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.statemachine.states
 {
     [TestSuite]
     public class BaseTurnStateTest

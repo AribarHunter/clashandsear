@@ -6,7 +6,7 @@ namespace ClashAndSear
     {
         public BattleMapGenerator(Node2D parentNode)
         {
-            Name = "BattleMapGenerator";
+            // Name = "BattleMapGenerator";
             parentNode.AddChild(this);
         }
 
@@ -25,6 +25,10 @@ namespace ClashAndSear
             BattleMap battleMap = new(10, 10, name, battleMapHighlight);
             GetParent().AddChild(battleMap);
             FillMapWithCheckerboard(battleMap, new Vector2I(0, 0), new Vector2I(1, 1));
+            
+            BattleMapCursor battleMapCursor = (BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
+            battleMap.AddChild(battleMapCursor);
+            
             return battleMap;
         }
 
@@ -62,10 +66,5 @@ namespace ClashAndSear
                 }
             }
         }
-
-
-
-
-
     }
 }

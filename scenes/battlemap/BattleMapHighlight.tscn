@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://do7codnxyxv8v"]
+
+[ext_resource type="Script" uid="uid://daq7gx53l2pa7" path="res://scripts/battlemap/BattleMapHighlight.cs" id="1_nkqx5"]
+
+[node name="BattleMapHighlight" type="TileMapLayer" unique_id=1894796057]
+script = ExtResource("1_nkqx5")

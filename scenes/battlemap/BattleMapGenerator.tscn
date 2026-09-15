@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cpxnkdysjl0yj"]
+
+[ext_resource type="Script" uid="uid://beh6t1qjsxuj8" path="res://scripts/battlemap/BattleMapGenerator.cs" id="1_hvmmo"]
+
+[node name="BattleMapGenerator" type="Node" unique_id=572829587]
+script = ExtResource("1_hvmmo")

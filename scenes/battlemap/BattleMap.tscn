@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://coit1ix1fd282"]
+
+[ext_resource type="Script" uid="uid://bt13vq3x7gri2" path="res://scripts/battlemap/BattleMap.cs" id="1_23eqe"]
+[ext_resource type="PackedScene" uid="uid://do7codnxyxv8v" path="res://scenes/battlemap/BattleMapHighlight.tscn" id="2_23eqe"]
+
+[node name="BattleMap" type="TileMapLayer" unique_id=1166684709]
+script = ExtResource("1_23eqe")
+width = 10
+height = 10
+
+[node name="BattleMapHighlight" parent="." unique_id=1894796057 instance=ExtResource("2_23eqe")]

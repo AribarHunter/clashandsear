@@ -28,9 +28,6 @@ namespace ClashAndSear
             Actor aThirdGal = test.Instantiate<Actor>();
             battleMapGenerator.AddEntityToPosition(aThirdGal, new Vector2I(4, 4), testMap.tiles[4, 4]);
 
-            // 's add a cursor?
-            BattleMapCursor battleMapCursor = (BattleMapCursor)ResourceLoader.Load<PackedScene>("res://scenes/battlemapcursor.tscn").Instantiate();
-            testMap.AddChild(battleMapCursor);
         
             GameContext.Instance.stateMachine.CurrentState = new BaseTurnState();
         }
