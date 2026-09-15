@@ -30,7 +30,7 @@ namespace ClashAndSear
             if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
             List<Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
             GameContext.Instance.selectedActor = actors.First();
-            _signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), actors.First());
+            _signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), GameContext.Instance.selectedActor);
         }
 
         /// <summary>

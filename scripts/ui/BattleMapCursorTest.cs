@@ -23,7 +23,6 @@ public class BattleMapCursorTest
     public static async Task TestPerformConfirmActionInBaseTurnStateSingleActor()
     {
         ISceneRunner runner = ISceneRunner.Load("res://scenes/test/gdUnit4TestScene_workpad.tscn");
-        GameContext gameContext = runner.Scene()!.GetNode<GameContext>("%GameContext");
         BattleMapGenerator battleMapGenerator = runner.Scene()!.GetNode<BattleMapGenerator>("%BattleMapGenerator");
         BattleMap testMap = battleMapGenerator.CreateBattleMap("TestMap");
         PackedScene unitPackedScene = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
@@ -48,9 +47,23 @@ public class BattleMapCursorTest
     /// <returns></returns>
     [TestCase]
     [RequireGodotRuntime]
-    public void TestPerformConfirmActionInBaseTurnStateMultipleActors()
+    public static async Task TestPerformConfirmActionInBaseTurnStateMultipleActors()
     {
+        ISceneRunner runner = ISceneRunner.Load("res://scenes/test/gdUnit4TestScene_workpad.tscn");
+        BattleMapGenerator battleMapGenerator = runner.Scene()!.GetNode<BattleMapGenerator>("%BattleMapGenerator");
+        BattleMap testMap = battleMapGenerator.CreateBattleMap("TestMap");
+        PackedScene unitPackedScene = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
+        Actor unit1 = unitPackedScene.Instantiate<Actor>();
+        battleMapGenerator.AddEntityToPosition(unit1, new Vector2I(0, 0), testMap.tiles[0, 0]);
+        Actor unit2 = unitPackedScene.Instantiate<Actor>();
+        battleMapGenerator.AddEntityToPosition(unit2, new Vector2I(0, 0), testMap.tiles[0, 0]);
+        AssertSignal(SignalManager.Instance).StartMonitoring();
         
+        SignalManager.Instance.E(SignalManager.SignalName.PerformConfirmAction);
+        
+        await AssertSignal(SignalManager.Instance)
+            .IsEmitted(SignalManager.SignalName.PerformSelectUnitAction, unit1)
+            .WithTimeout(50);
     }
     
     /// <summary>
@@ -63,9 +76,17 @@ public class BattleMapCursorTest
     /// <returns></returns>
     [TestCase]
     [RequireGodotRuntime]
-    public void TestPerformConfirmActionInBaseTurnStateNoActors()
+    public static async Task TestPerformConfirmActionInBaseTurnStateNoActors()
     {
         ISceneRunner runner = ISceneRunner.Load("res://scenes/test/gdUnit4TestScene_workpad.tscn");
-        GameContext gameContext = runner.Scene()!.GetNode<GameContext>("%GameContext");
+        BattleMapGenerator battleMapGenerator = runner.Scene()!.GetNode<BattleMapGenerator>("%BattleMapGenerator");
+        BattleMap testMap = battleMapGenerator.CreateBattleMap("TestMap");
+        AssertSignal(SignalManager.Instance).StartMonitoring();
+        
+        SignalManager.Instance.E(SignalManager.SignalName.PerformConfirmAction);
+        
+        await AssertSignal(SignalManager.Instance)
+            .IsNotEmitted(SignalManager.SignalName.PerformSelectUnitAction)
+            .WithTimeout(50);
     }
 }
