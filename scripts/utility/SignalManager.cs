@@ -11,6 +11,7 @@ namespace ClashAndSear
         [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(PathMap tiles);
         [Signal] public delegate void PerformHighlightIfHoveringOverActorActionEventHandler();
         [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
+        [Signal] public delegate void PerformSelectMoveDestinationEventHandler(Vector2I delta);
 
         public static SignalManager Instance { get; private set; }
 
@@ -54,7 +55,7 @@ namespace ClashAndSear
         public void E(string signal, params Variant[] args)
         {
             EmitSignal(signal, args);
-            //GD.Print($"Emit Signal: {signal}");
+            // GD.Print($"Emit Signal: {signal}");
         }
     }
 }

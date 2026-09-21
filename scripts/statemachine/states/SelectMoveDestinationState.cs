@@ -27,14 +27,26 @@ namespace ClashAndSear
             }
             else if (Input.IsActionJustPressed("cancel"))
             {
-                GD.PrintRich("[b]HandleInput (SelectMoveDestinationState):[/b] Cancel pressed.");
+                // GD.PrintRich("[b]HandleInput (SelectMoveDestinationState):[/b] Cancel pressed.");
                 UnitSelectionWasCancelled();
+            }
+            else if (Input.IsActionJustPressed("confirm"))
+            {
+                // GD.PrintRich("[b]HandleInput (BaseTurnState):[/b] Confirm Pressed. Emitting PerformConfirmAction signal.");
+                SignalManager.Instance.E(SignalManager.SignalName.PerformConfirmAction);
             }
         }
 
         public override void Enter()
         {
             base.Enter();
+            SignalManager.Instance.C(SignalManager.SignalName.PerformSelectMoveDestination, this, nameof(PerformSelectMoveDestinationAction));
+        }
+        
+        public override void Exit()
+        {
+            base.Exit();
+            SignalManager.Instance.D(SignalManager.SignalName.PerformSelectMoveDestination, this, nameof(PerformSelectMoveDestinationAction));
         }
 
         /// <summary>
@@ -44,6 +56,12 @@ namespace ClashAndSear
         {
             GameContext.Instance.selectedActor = null;
             GameContext.Instance.stateMachine.CurrentState  = new BaseTurnState();
+        }
+        
+        protected void PerformSelectMoveDestinationAction(Actor actor)
+        {
+            // GD.PrintRich("Here is where we'd advance state.");
+            //stateMachine.CurrentState = new SelectMoveDestinationState();
         }
     }
 }

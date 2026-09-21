@@ -1,3 +1,4 @@
+using ClashAndSear.scripts.ui;
 using Godot;
 
 namespace ClashAndSear
@@ -15,7 +16,7 @@ namespace ClashAndSear
         }
 
         /// <summary>
-        /// Generates a basic BattleMap and fills it with a simple checkboard pattern.
+        /// Generates a basic BattleMap and fills it with a simple checkerboard pattern.
         /// </summary>
         /// <param name="name">The BattleMap's node name.</param>
         /// <returns></returns>

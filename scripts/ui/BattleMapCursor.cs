@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.ui
 {
     public partial class BattleMapCursor : Node2D
     {
@@ -20,17 +20,27 @@ namespace ClashAndSear
             _tilePosition = _battleMap.LocalToMap(Position);
 
             _signalManager = SignalManager.Instance;
-            _signalManager.C(SignalManager.SignalName.PerformConfirmAction.ToString(), this, nameof(PerformConfirmAction));
-            _signalManager.C(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction.ToString(), this, nameof(PerformHighlightIfHoveringOverActorAction));
-            _signalManager.C(SignalManager.SignalName.PerformMoveAction.ToString(), this, nameof(PerformMoveAction));
+            _signalManager.C(SignalManager.SignalName.PerformConfirmAction, this, nameof(PerformConfirmAction));
+            _signalManager.C(SignalManager.SignalName.PerformHighlightIfHoveringOverActorAction, this, nameof(PerformHighlightIfHoveringOverActorAction));
+            _signalManager.C(SignalManager.SignalName.PerformMoveAction, this, nameof(PerformMoveAction));
         }
 
         protected void PerformConfirmAction()
         {
-            if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
-            List<Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
-            GameContext.Instance.selectedActor = actors.First();
-            _signalManager.E(SignalManager.SignalName.PerformSelectUnitAction.ToString(), GameContext.Instance.selectedActor);
+            switch (GameContext.Instance.stateMachine.CurrentState)
+            {
+                case BaseTurnState:
+                    if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
+                    List<Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
+                    GameContext.Instance.selectedActor = actors.First();
+                    _signalManager.E(SignalManager.SignalName.PerformSelectUnitAction, GameContext.Instance.selectedActor);
+                    break;
+                case SelectMoveDestinationState:
+                    _signalManager.E(SignalManager.SignalName.PerformSelectMoveDestination, _tilePosition);
+                    break;
+                default:
+                    return;
+            }
         }
 
         /// <summary>
@@ -52,13 +62,13 @@ namespace ClashAndSear
                         PerformHighlightIfHoveringOverActorAction();
                         break;
                     case SelectMoveDestinationState:
-                        GD.Print("We'll do something here.");
+                        // GD.Print("We'll do something here.");
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            GD.PrintRich("A* Position InBounds?: {0} {1}", newPosition.ToString(), _battleMap.astarGrid.IsInBoundsv(newPosition));
+            // GD.PrintRich("A* Position InBounds?: {0} {1}", newPosition.ToString(), _battleMap.astarGrid.IsInBoundsv(newPosition));
         }
 
         /// <summary>
@@ -66,12 +76,12 @@ namespace ClashAndSear
         /// </summary>
         private void PerformHighlightIfHoveringOverActorAction()
         {
-            _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString());
+            _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll);
             if (!_battleMap.DoesPositionContainActor(_tilePosition)) return;
             List<Actor> actors = _battleMap.GetActorsInPosition(_tilePosition);
             PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, actors.First().battleMapPosition, actors.First().CanActorMoveBetweenTiles);
 
-            _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), areaToHighlight);
+            _signalManager.E(SignalManager.SignalName.PerformBattleMapHighlightAdd, areaToHighlight);
         }
     }
 }
