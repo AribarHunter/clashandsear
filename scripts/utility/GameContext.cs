@@ -8,6 +8,7 @@ namespace ClashAndSear
         public static GameContext Instance { get; private set; }
 
         public Actor selectedActor;
+        public Vector2I selectedPosition;
     
         // TODO change to use this instead of currentState?
         [Export] public StateMachine stateMachine;

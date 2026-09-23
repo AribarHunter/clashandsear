@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.statemachine.states
 {
     public partial class SelectMoveDestinationState : State
     {
@@ -61,7 +61,15 @@ namespace ClashAndSear
         protected void PerformSelectMoveDestinationAction(Actor actor)
         {
             // GD.PrintRich("Here is where we'd advance state.");
-            //stateMachine.CurrentState = new SelectMoveDestinationState();
+            // TODO: Eventually make more me-friendly Pathfinder stuff...
+            // PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, GameContext.Instance.selectedActor.battleMapPosition, GameContext.Instance.selectedActor.CanActorMoveBetweenTiles);
+            if (true)
+            {
+                SignalManager.Instance.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll);
+                stateMachine.CurrentState = new UnitMovingState();
+                
+            }
+            //
         }
     }
 }

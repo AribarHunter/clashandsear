@@ -9,7 +9,7 @@ namespace ClashAndSear
         public int width;
         public int height;
         public readonly BattleMapTile[,] tiles;
-        private BattleMapHighlight _battleMapHighlight;
+        public BattleMapHighlight battleMapHighlight;
         public AStarGrid2D astarGrid;
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ClashAndSear
             tiles = new BattleMapTile[width, height];
 
             // Set up BattleMapHighlight.
-            this._battleMapHighlight = battleMapHighlight;
+            this.battleMapHighlight = battleMapHighlight;
             AddChild(battleMapHighlight);
 
             // Set up AStarGrid stuff.

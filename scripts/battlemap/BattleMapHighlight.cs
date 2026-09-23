@@ -8,8 +8,9 @@ namespace ClashAndSear
         //public int width;
         //public int height;
 
-        private SignalManager _signalManager;
         private Vector2I _movementHighlightTile;
+        public bool IsUsed => GetUsedCells().Count > 0;
+
 
         public BattleMapHighlight()
         {
@@ -23,9 +24,8 @@ namespace ClashAndSear
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            _signalManager = SignalManager.Instance;
-            _signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
-            _signalManager.C(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
+            SignalManager.Instance.C(SignalManager.SignalName.PerformBattleMapHighlightAdd.ToString(), this, nameof(PerformBattleMapHighlightAdd));
+            SignalManager.Instance.C(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll.ToString(), this, nameof(PerformBattleMapHighlightRemoveAll));
         }
 
         /// <summary>
@@ -54,12 +54,8 @@ namespace ClashAndSear
         /// </summary>
         private void PerformBattleMapHighlightRemoveAll()
         {
-            GD.PrintRich("PerformBattleMapHighlightRemoveAll");
             if (GetUsedCells().Count > 0)
-            {
-                GD.PrintRich("GOTTACLEAR");
                 Clear();
-            }
         }
     }
 }
