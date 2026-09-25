@@ -58,18 +58,17 @@ namespace ClashAndSear.scripts.statemachine.states
             GameContext.Instance.stateMachine.CurrentState  = new BaseTurnState();
         }
         
-        protected void PerformSelectMoveDestinationAction(Actor actor)
+        /// <summary>
+        /// Takes a position. If the selected actor can move to it, move onward. Otherwise do nothing.
+        /// </summary>
+        /// <param name="position">The position we will check.</param>
+        protected void PerformSelectMoveDestinationAction(Vector2I position)
         {
-            // GD.PrintRich("Here is where we'd advance state.");
-            // TODO: Eventually make more me-friendly Pathfinder stuff...
-            // PathMap areaToHighlight = Pathfinder.SearchArea(_battleMap, GameContext.Instance.selectedActor.battleMapPosition, GameContext.Instance.selectedActor.CanActorMoveBetweenTiles);
-            if (true)
-            {
-                SignalManager.Instance.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll);
-                stateMachine.CurrentState = new UnitMovingState();
-                
-            }
-            //
+            if (!GameContext.Instance.battleMap.CanActorMoveToPosition(GameContext.Instance.selectedActor, position))
+                return;
+            GameContext.Instance.selectedPosition = position;
+            SignalManager.Instance.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll);
+            stateMachine.CurrentState = new UnitMovingState();
         }
     }
 }

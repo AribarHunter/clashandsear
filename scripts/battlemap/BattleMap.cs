@@ -53,6 +53,19 @@ namespace ClashAndSear
         }
 
         /// <summary>
+        /// Check if an actor can move from their current position to the indicated one.
+        /// </summary>
+        /// <param name="actor">The actor we're checking.</param>
+        /// <param name="position">The position we're checking.</param>
+        /// <returns></returns>
+        public bool CanActorMoveToPosition(Actor actor, Vector2I position)
+        {
+            PathMap possiblePositions =
+                Pathfinder.SearchArea(this, actor.battleMapPosition, actor.CanActorMoveBetweenTiles);
+            return possiblePositions.ToVector2IList().Contains(position);
+        }
+
+        /// <summary>
         /// Checks if there are any Entities recorded on a BattleMapTile found by its position.
         /// </summary>
         /// <param name="tilePosition">The position of the BattleMapTile.</param>

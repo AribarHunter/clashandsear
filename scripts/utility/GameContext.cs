@@ -9,6 +9,7 @@ namespace ClashAndSear
 
         public Actor selectedActor;
         public Vector2I selectedPosition;
+        public BattleMap battleMap;
     
         // TODO change to use this instead of currentState?
         [Export] public StateMachine stateMachine;
