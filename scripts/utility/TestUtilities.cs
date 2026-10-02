@@ -1,8 +1,9 @@
+using ClashAndSear.scripts.battlemap;
 using Godot;
 
 namespace ClashAndSear.scripts.utility;
 
-public class TestUtilities
+public static class TestUtilities
 {
     /// <summary>
     /// Utility method to add an Actor to the test scene at a certain position.
@@ -11,11 +12,11 @@ public class TestUtilities
     /// <param name="battleMap">Place the Actor on this BattleMap.</param>
     /// <param name="position">Place the Actor at this position.</param>
     /// <returns></returns>
-    public static Actor ArrangeActor(BattleMapGenerator battleMapGenerator, BattleMap battleMap, Vector2I position)
+    public static entity.Actor ArrangeActor(BattleMapGenerator battleMapGenerator, BattleMap battleMap, Vector2I position)
     {
         PackedScene unitPackedScene = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
-        Actor unit = unitPackedScene.Instantiate<Actor>();
-        battleMapGenerator.AddEntityToPosition(unit, position, battleMap.tiles[position.X, position.Y]);
+        entity.Actor unit = unitPackedScene.Instantiate<entity.Actor>();
+        battleMapGenerator.AddEntityToBattleMapAtPosition(unit, battleMap, position);
         return unit;
     }
 
@@ -31,8 +32,8 @@ public class TestUtilities
         BattleMap battleMap, Vector2I position)
     {
         PackedScene unitPackedScene = GD.Load<PackedScene>("res://scenes/entities/actor.tscn");
-        Actor unit = unitPackedScene.Instantiate<Actor>();
-        battleMapGenerator.AddEntityToPosition(unit, position, battleMap.tiles[position.X, position.Y]);
+        entity.Actor unit = unitPackedScene.Instantiate<entity.Actor>();
+        battleMapGenerator.AddEntityToBattleMapAtPosition(unit, battleMap, position);
         gameContext.selectedActor = unit;
     }
 }

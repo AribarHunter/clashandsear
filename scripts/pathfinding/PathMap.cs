@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ClashAndSear.scripts.battlemap;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.pathfinding
 {
     public partial class PathMap : GodotObject
     {
@@ -12,8 +13,8 @@ namespace ClashAndSear
 
         public PathMap(BattleMapTile startTile, BattleMapTile endTile)
         {
-            this._startTile = startTile;
-            this._endTile = endTile;
+            _startTile = startTile;
+            _endTile = endTile;
             valueToKeyPath.Add(startTile, new PathNode(null, 0));
         }
 

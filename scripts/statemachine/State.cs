@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.statemachine
 {
     public abstract partial class State : GodotObject
     {
@@ -23,7 +23,7 @@ namespace ClashAndSear
         /// </summary>
         public virtual void Enter()
         {
-            GD.Print($"Entering State: {this.GetType().Name}");
+            GD.Print($"Entering State: {GetType().Name}");
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace ClashAndSear
         /// </summary>
         public virtual void Exit()
         {
-            GD.Print($"Exiting State: {this.GetType().Name}");
+            GD.Print($"Exiting State: {GetType().Name}");
         }
     }
 }

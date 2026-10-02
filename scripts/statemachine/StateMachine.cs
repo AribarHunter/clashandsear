@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.statemachine
 {
     public sealed partial class StateMachine : Node
     {
@@ -18,7 +18,7 @@ namespace ClashAndSear
         public StateMachine(Node parent, SignalManager signalManager)
         {
             Name = "StateMachine";
-            this._signalManager = signalManager;
+            _signalManager = signalManager;
             parent.AddChild(this);
         }
 

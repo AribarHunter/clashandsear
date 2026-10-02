@@ -1,27 +1,19 @@
+using ClashAndSear.scripts.utility;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.entity
 {
     public partial class Entity : Node2D
     {
-
         public Vector2I battleMapPosition;
-        private BattleMapTile _currentBattleMapTile;
-
+  
         /// <summary>
-        /// Use this to remove the Entity from its current BattleMapTile and add it to a new one.
+        /// Sets an internal position variable and updates the node's graphical position.
         /// </summary>
-        /// <param name="newBattleMapTile">The Entity's destination BattleMapTile.</param>
-        public void SetEntityToBattleMapTile(BattleMapTile newBattleMapTile)
+        /// <param name="position">The battle map position to be set.</param>
+        public void UpdateBattleMapPosition(Vector2I position)
         {
-            // Remove entity from current tile.
-            _currentBattleMapTile?.entities.Remove(this);
-            // Add entity to new tile.
-            newBattleMapTile.entities.Add(this);
-        }
-
-        public void UpdateTransformToTile()
-        {
+            battleMapPosition = position;
             Position = CoordinateConverter.FindPixelAtTile(battleMapPosition);
         }
     }

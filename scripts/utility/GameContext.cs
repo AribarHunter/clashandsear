@@ -1,18 +1,16 @@
-﻿using ClashAndSear.scripts.statemachine;
-using Godot;
+﻿using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.utility
 {
     public partial class GameContext : Node
     {
         public static GameContext Instance { get; private set; }
 
-        public Actor selectedActor;
+        public entity.Actor selectedActor;
         public Vector2I selectedPosition;
-        public BattleMap battleMap;
+        public battlemap.BattleMap battleMap;
     
-        // TODO change to use this instead of currentState?
-        [Export] public StateMachine stateMachine;
+        [Export] public statemachine.StateMachine stateMachine;
 
         public GameContext(Node2D parentNode)
         {

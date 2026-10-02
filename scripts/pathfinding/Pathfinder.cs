@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using ClashAndSear.scripts.battlemap;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.pathfinding
 {
     /// <summary>
     /// Everything needed to find paths or areas!

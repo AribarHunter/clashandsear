@@ -1,4 +1,7 @@
 using System.Threading.Tasks;
+using ClashAndSear.scripts.battlemap;
+using ClashAndSear.scripts.entity;
+using ClashAndSear.scripts.statemachine.states;
 using ClashAndSear.scripts.utility;
 using GdUnit4;
 using Godot;
@@ -114,7 +117,7 @@ public class BattleMapCursorTest
         // Arrange ISceneRunner and GameContext
         ISceneRunner runner = ISceneRunner.Load("res://scenes/test/gdUnit4TestScene_workpad.tscn");
         GameContext gameContext = runner.Scene()!.GetNode<GameContext>("%GameContext");
-        gameContext.stateMachine.CurrentState = new statemachine.states.SelectMoveDestinationState();
+        gameContext.stateMachine.CurrentState = new SelectMoveDestinationState();
         AssertSignal(SignalManager.Instance).StartMonitoring();
         // Arrange map
         BattleMapGenerator battleMapGenerator = runner.Scene()!.GetNode<BattleMapGenerator>("%BattleMapGenerator");

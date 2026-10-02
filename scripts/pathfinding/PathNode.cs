@@ -1,4 +1,6 @@
-﻿namespace ClashAndSear
+﻿using ClashAndSear.scripts.battlemap;
+
+namespace ClashAndSear.scripts.pathfinding
 {
     public class PathNode(BattleMapTile previousTile, int costSoFar)
     {

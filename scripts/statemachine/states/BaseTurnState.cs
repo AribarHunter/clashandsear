@@ -1,7 +1,6 @@
 using Godot;
-using ClashAndSear.scripts.statemachine.states;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.statemachine.states
 {
     public partial class BaseTurnState : State
     {
@@ -46,7 +45,7 @@ namespace ClashAndSear
             SignalManager.Instance.D(SignalManager.SignalName.PerformSelectUnitAction, this, nameof(PerformSelectUnitAction));
         }
 
-        protected void PerformSelectUnitAction(Actor actor)
+        protected void PerformSelectUnitAction(entity.Actor actor)
         {
             stateMachine.CurrentState = new SelectMoveDestinationState();
         }

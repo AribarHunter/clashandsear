@@ -1,3 +1,5 @@
+using ClashAndSear.scripts.battlemap;
+using ClashAndSear.scripts.utility;
 using Godot;
 
 namespace ClashAndSear.scripts.statemachine.states
@@ -67,8 +69,9 @@ namespace ClashAndSear.scripts.statemachine.states
             if (!GameContext.Instance.battleMap.CanActorMoveToPosition(GameContext.Instance.selectedActor, position))
                 return;
             GameContext.Instance.selectedPosition = position;
+            BattleMap.SetEntityToPosition(GameContext.Instance.selectedActor, GameContext.Instance.selectedPosition);
             SignalManager.Instance.E(SignalManager.SignalName.PerformBattleMapHighlightRemoveAll);
-            stateMachine.CurrentState = new UnitMovingState();
+            // stateMachine.CurrentState = new UnitMovingState();
         }
     }
 }

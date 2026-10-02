@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using System.Linq;
+using ClashAndSear.scripts.entity;
+using ClashAndSear.scripts.pathfinding;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.battlemap
 {
     public partial class BattleMap : TileMapLayer
     {
@@ -10,7 +13,10 @@ namespace ClashAndSear
         public int height;
         public readonly BattleMapTile[,] tiles;
         public BattleMapHighlight battleMapHighlight;
-        public AStarGrid2D astarGrid;
+        private AStarGrid2D _astarGrid;
+        
+        public readonly List<Entity> entities = [];
+        private List<Actor> Actors => entities.OfType<Actor>().ToList(); // Will this be a problem with Player?
 
         /// <summary>
         /// Convenience array for addition to get the direct neighbors to a tile.
@@ -36,13 +42,13 @@ namespace ClashAndSear
             AddChild(battleMapHighlight);
 
             // Set up AStarGrid stuff.
-            astarGrid = new AStarGrid2D();
-            astarGrid.Region = new Rect2I(0, 0, width, height);
-            astarGrid.CellSize = new Vector2I(1, 1);
-            astarGrid.DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan;
-            astarGrid.DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan;
-            astarGrid.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;
-            astarGrid.Update();
+            _astarGrid = new AStarGrid2D();
+            _astarGrid.Region = new Rect2I(0, 0, width, height);
+            _astarGrid.CellSize = new Vector2I(1, 1);
+            _astarGrid.DefaultComputeHeuristic = AStarGrid2D.Heuristic.Manhattan;
+            _astarGrid.DefaultEstimateHeuristic = AStarGrid2D.Heuristic.Manhattan;
+            _astarGrid.DiagonalMode = AStarGrid2D.DiagonalModeEnum.Never;
+            _astarGrid.Update();
 
             // Hardcoded TileSet for now.
             Set(TileMapLayer.PropertyName.TileSet, ResourceLoader.Load("resources/tilesets/rtstilemap.tres", TileMapLayer.PropertyName.TileSet));
@@ -68,31 +74,33 @@ namespace ClashAndSear
         /// <summary>
         /// Checks if there are any Entities recorded on a BattleMapTile found by its position.
         /// </summary>
-        /// <param name="tilePosition">The position of the BattleMapTile.</param>
+        /// <param name="position">The position to be checked.</param>
         /// <returns>True if there's an Entity or False if there's not.</returns>
-        private bool DoesPositionContainEntity(Vector2I tilePosition)
+        private bool DoesPositionContainEntity(Vector2I position)
         {
-            return tiles[tilePosition.X, tilePosition.Y].entities.Count > 0;
+            return entities.Any(entity => entity.battleMapPosition == position);
         }
 
         /// <summary>
         /// Checks if there are any Actors recorded on a BattleMapTile found by its position.
         /// </summary>
-        /// <param name="tilePosition">The position of the BattleMapTile.</param>
+        /// <param name="position">The position to be checked.</param>
         /// <returns>True if there's an Actor or False if there's not.</returns>
-        public bool DoesPositionContainActor(Vector2I tilePosition)
+        public bool DoesPositionContainActor(Vector2I position)
         {
-            return tiles[tilePosition.X, tilePosition.Y].Actors.Count > 0;
+            return Actors.Any(actor => actor.battleMapPosition == position);
         }
 
         /// <summary>
         /// Retrieves a list of actors from a position.
         /// </summary>
-        /// <param name="position">The BattleMapTile position to be checked.</param>
+        /// <param name="position">The position to be checked.</param>
         /// <returns>A list of all Actors in the tile position.</returns>
         public List<Actor> GetActorsInPosition(Vector2I position)
         {
-            return tiles[position.X, position.Y].Actors;
+            List<Actor> result = [];
+            result.AddRange(Actors.Where(actor => actor.battleMapPosition == position));
+            return result;
         }
 
         /// <summary>
@@ -137,6 +145,16 @@ namespace ClashAndSear
         {
             return (0 <= position.X && position.X < width &&
                     0 <= position.Y && position.Y < height);
+        }
+
+        /// <summary>
+        /// Sets an entity to the given position.
+        /// </summary>
+        /// <param name="entity">The entity to be set.</param>
+        /// <param name="position">The position to be set.</param>
+        public static void SetEntityToPosition(Entity entity, Vector2I position)
+        {
+            entity.UpdateBattleMapPosition(position);
         }
     }
 }

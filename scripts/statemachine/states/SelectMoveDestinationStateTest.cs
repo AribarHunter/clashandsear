@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using ClashAndSear.scripts.battlemap;
 using ClashAndSear.scripts.utility;
 using GdUnit4;
 using Godot;
@@ -44,8 +45,9 @@ namespace ClashAndSear.scripts.statemachine.states
         ///     When the game receives a PerformSelectMoveDestination signal
         ///     And it is a valid move destination
         ///         Then update selectedPosition
+        ///         And move selectedActor
         ///         And remove UI highlights
-        ///         And move onto the UnitMovingState.
+        ///         And stay in SelectMoveDestinationState.
         /// </summary>
         [TestCase]
         [RequireGodotRuntime]
@@ -71,9 +73,11 @@ namespace ClashAndSear.scripts.statemachine.states
             // Assert
             AssertThat(GameContext.Instance.selectedPosition)
                 .IsEqual(new Vector2I(1, 0));
+            AssertThat(GameContext.Instance.selectedActor.battleMapPosition)
+                .IsEqual(new Vector2I(1, 0));
             AssertThat(!testMap.battleMapHighlight.IsUsed);
             AssertThat(GameContext.Instance.stateMachine.CurrentState)
-                .IsInstanceOf<UnitMovingState>();
+                .IsInstanceOf<SelectMoveDestinationState>();
         }
         
         /// <summary>
@@ -98,7 +102,6 @@ namespace ClashAndSear.scripts.statemachine.states
             BattleMap testMap = battleMapGenerator.CreateBattleMap("TestMap");
             //Arrange actor
             TestUtilities.ArrangeActorAndSelect(gameContext, battleMapGenerator, testMap, new Vector2I(0, 0));
-            // GameContext.Instance.selectedPosition = new Vector2I(5, 5);
             //Arrange cursor
             SignalManager.Instance.E(SignalManager.SignalName.PerformMoveAction, new Vector2I(5,0));
 
@@ -112,7 +115,6 @@ namespace ClashAndSear.scripts.statemachine.states
             AssertThat(testMap.battleMapHighlight.IsUsed);
             AssertThat(GameContext.Instance.stateMachine.CurrentState)
                 .IsInstanceOf<SelectMoveDestinationState>();
-            
-;        }
+        }
     }
 }

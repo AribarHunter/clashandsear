@@ -7,8 +7,8 @@ namespace ClashAndSear
     {
         [Signal] public delegate void PerformConfirmActionEventHandler(Vector2I delta);
         [Signal] public delegate void PerformMoveActionEventHandler(Vector2I delta);
-        [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(PathMap tiles);
-        [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(PathMap tiles);
+        [Signal] public delegate void PerformBattleMapHighlightAddEventHandler(scripts.pathfinding.PathMap tiles);
+        [Signal] public delegate void PerformBattleMapHighlightRemoveAllEventHandler(scripts.pathfinding.PathMap tiles);
         [Signal] public delegate void PerformHighlightIfHoveringOverActorActionEventHandler();
         [Signal] public delegate void PerformSelectUnitActionEventHandler(Vector2I delta);
         [Signal] public delegate void PerformSelectMoveDestinationEventHandler(Vector2I delta);

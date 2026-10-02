@@ -1,7 +1,7 @@
 using ClashAndSear.scripts.ui;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.battlemap
 {
     public partial class BattleMapGenerator : Node
     {
@@ -37,13 +37,12 @@ namespace ClashAndSear
         /// Puts the Entity in a specific position on a board. I feel like this could be better or in a different place.
         /// </summary>
         /// <param name="entity">The Entity to be positioned.</param>
+        /// <param name="battleMap">The BattleMap to be modified.</param>
         /// <param name="position">The position on the BattleMap.</param>
-        /// <param name="battleMapTile">The specific BattleMapTile they'll be on.</param>
-        public void AddEntityToPosition(Entity entity, Vector2I position, BattleMapTile battleMapTile)
+        public void AddEntityToBattleMapAtPosition(entity.Entity entity, BattleMap battleMap, Vector2I position)
         {
-            entity.battleMapPosition = position;
-            entity.SetEntityToBattleMapTile(battleMapTile);
-            entity.UpdateTransformToTile();
+            battleMap.entities.Add(entity);
+            entity.UpdateBattleMapPosition(position);
             GetParent().AddChild(entity);
         }
 

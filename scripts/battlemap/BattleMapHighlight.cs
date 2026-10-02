@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.battlemap
 {
     public partial class BattleMapHighlight : TileMapLayer
     {
-        //public int width;
-        //public int height;
-
         private Vector2I _movementHighlightTile;
         public bool IsUsed => GetUsedCells().Count > 0;
 
@@ -32,7 +29,7 @@ namespace ClashAndSear
         /// Highlight all the tiles in a PathMap.
         /// </summary>
         /// <param name="pathmap">The PathMap of tiles we'll be highlighting.</param>
-        private void PerformBattleMapHighlightAdd(PathMap pathmap)
+        private void PerformBattleMapHighlightAdd(pathfinding.PathMap pathmap)
         {
             PerformBattleMapHighlightAdd(pathmap.ToVector2IList());
         }

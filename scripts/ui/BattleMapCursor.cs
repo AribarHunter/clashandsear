@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Godot;
+using ClashAndSear.scripts.battlemap;
+using ClashAndSear.scripts.entity;
+using ClashAndSear.scripts.pathfinding;
 using ClashAndSear.scripts.statemachine.states;
+using ClashAndSear.scripts.utility;
+using Godot;
 
 namespace ClashAndSear.scripts.ui
 {

@@ -1,6 +1,6 @@
 using Godot;
 
-namespace ClashAndSear
+namespace ClashAndSear.scripts.utility
 {
     public static class CoordinateConverter
     {

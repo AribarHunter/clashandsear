@@ -1,7 +1,9 @@
 using System.Threading.Tasks;
+using ClashAndSear.scripts.utility;
 using GdUnit4;
 using Godot;
 using static GdUnit4.Assertions;
+
 // ReSharper disable UnusedMember.Global
 
 namespace ClashAndSear.scripts.statemachine.states
